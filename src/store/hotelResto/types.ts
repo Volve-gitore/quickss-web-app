@@ -1,0 +1,1 @@
+export const GET_HOTEL_RESTO = 'GET_HOTEL_RESTO';
