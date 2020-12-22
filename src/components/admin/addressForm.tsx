@@ -28,7 +28,7 @@ const AddressForm = (props: Props) => {
           SelectProps={{
             native: true
           }}
-          value={state.province}
+          value={province}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
         >
           <option></option>
@@ -48,7 +48,7 @@ const AddressForm = (props: Props) => {
           SelectProps={{
             native: true
           }}
-          value={state.district}
+          value={district}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
         >
           <option></option>
@@ -68,7 +68,7 @@ const AddressForm = (props: Props) => {
           SelectProps={{
             native: true
           }}
-          value={state.sector}
+          value={sector}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
         >
           <option></option>

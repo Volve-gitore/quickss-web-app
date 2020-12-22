@@ -16,6 +16,7 @@ import { AppState } from "../../../store/configureStore";
 import { connect, ConnectedProps } from "react-redux";
 import { authActions } from "../../../store/auth/actions";
 import { TextField, CircularProgress } from "@material-ui/core";
+import { Visibility, Lock, Person } from "@material-ui/icons";
 import { IState } from "./types";
 import { IModalState } from "../../admin/registerHotelRestoType";
 import { IErrors } from "../../../store/auth/types";
@@ -95,7 +96,8 @@ const Login = (props: Props) => {
         >
           <Grid item md={3} sm={8} xs={3}>
             <Paper className='paper'>
-              <h2>Quickss</h2>
+              <h3 className='title-1'>Quickss</h3>
+              <h2 className='title-2'>LOGIN</h2>
               <FormControl
                 className='margin'
                 style={{
@@ -103,7 +105,7 @@ const Login = (props: Props) => {
                 }}
               >
                 <TextField
-                  style={{ color: "red" }}
+                  className='input-field'
                   variant='outlined'
                   margin='normal'
                   required={true}
@@ -114,6 +116,9 @@ const Login = (props: Props) => {
                   autoComplete='phoneNo'
                   autoFocus
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
+                  InputProps={{
+                    startAdornment: <Person className='icon-color' />
+                  }}
                 />
                 <TextField
                   variant='outlined'
@@ -126,13 +131,20 @@ const Login = (props: Props) => {
                   id='password'
                   autoComplete='current-password'
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
+                  InputProps={{
+                    startAdornment: <Lock className='icon-color' />,
+                    endAdornment: <Visibility className='icon-color' />
+                  }}
                 />
                 <Button type='submit' variant='contained' className='color'>
                   {state.spinner ? <CircularProgress size={25} /> : "login"}
                 </Button>
               </FormControl>
-              <p>
-                Forgot password? <Link href='#'>click here</Link>
+              <p className='default-color'>
+                Forgot password?{" "}
+                <Link className='pink-color' href='#'>
+                  click here
+                </Link>
               </p>
             </Paper>
           </Grid>

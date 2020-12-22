@@ -1,5 +1,17 @@
 @import "../../../assets/scss/color.style.scss";
 
+.title-1 {
+  color: $blackColor;
+}
+.default-color {
+  color: $defaultColor;
+}
+.pink-color {
+  color: $orangeColor !important;
+}
+.input-field:focus {
+  border-color: $orangeColor !important;
+}
 .root {
   flex-grow: 1;
 }
@@ -18,10 +30,6 @@
   margin-top: 16px !important;
   color: $whiteColor !important;
 }
-// .authcard {
-//   background-color: $greyColor !important;
-//   display: flex !important;
-//   justify-content: center !important;
-//   height: 100vh !important;
-//   align-items: center !important;
-// }
+.icon-color {
+  color: $defaultColor;
+}

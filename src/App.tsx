@@ -3,7 +3,7 @@ import Routes from "./components/routes/indexRoutes";
 import axios from "axios";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://quickss-backend.herokuapp.com";
 const store = configureStore();
 function App() {
   return (

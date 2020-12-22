@@ -8,7 +8,7 @@ export const authActions = (
 ): AppThunk => async dispatch => {
   dispatchHandler({ type: ERRORS, data: null, dispatch });
   try {
-    const URL = "http://localhost:5000/api/user/auth/signin";
+    const URL = "/api/user/auth/signin";
     const { data } = await axios.post(URL, formData);
     if (data) {
       dispatchHandler({ type: LOGIN, data: data, dispatch });

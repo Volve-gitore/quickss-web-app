@@ -71,21 +71,3 @@ export const hotelRestoView = (): AppThunk => async dispatch => {
   }
 };
 
-// export const uploadImage = async ({ file, preset }: { file: any; preset: string }) => {
-//   try {
-//     const URL = `${process.env.REACT_APP_CLOUDINARY_UPLOAD_URL}`;
-//     const form = new FormData();
-//     form.append('file', file[0]);
-//     form.append('upload_preset', preset);
-//     const { data } = await axios.post(URL, form, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//       },
-//     });
-//     return data;
-//   } catch (error) {
-//     if (error) {
-//       toast.error('image upload failed');
-//     }
-//   }
-// };

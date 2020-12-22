@@ -102,7 +102,6 @@ const UploadForm = (props: Props) => {
                     </label>
                   </TableCell>
                 </TableRow>
-                {/* ))} */}
               </TableBody>
             </Table>
           </TableContainer>
