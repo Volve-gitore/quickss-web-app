@@ -1,5 +1,4 @@
 import React, { Fragment, MouseEvent } from "react";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -7,36 +6,17 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { IModalState } from "../admin/registerHotelRestoType";
-import { IErrors } from "../../store/hotelResto/types";
-
+import "./styles.scss";
+import { ErrorOutline, CheckCircleOutline } from "@material-ui/icons";
 type Props = {
   state: IModalState;
   handleClose: (event: MouseEvent<HTMLButtonElement>) => void;
   message: string;
   error: string;
+  title: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    form: {
-      display: "flex",
-      flexDirection: "column",
-      margin: "auto",
-      width: "fit-content"
-    },
-    formControl: {
-      marginTop: theme.spacing(2),
-      minWidth: 120
-    },
-    formControlLabel: {
-      marginTop: theme.spacing(1)
-    }
-  })
-);
-
 export default function ModalBox(props: Props) {
-  const classes = useStyles();
-
   return (
     <Fragment>
       <Dialog
@@ -46,16 +26,26 @@ export default function ModalBox(props: Props) {
         onClose={(e: MouseEvent<HTMLButtonElement>) => props.handleClose(e)}
         aria-labelledby='max-width-dialog-title'
       >
-        <DialogTitle id='max-width-dialog-title'>Title</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogTitle
+          id='max-width-dialog-title'
+          className='dialog-content-title'
+        >
+          {props.title}
+        </DialogTitle>
+        <DialogContent className='dialog-content'>
+          <DialogContentText className='dialog-content-text'>
+            {props.error ? (
+              <ErrorOutline className='orange-color icon' />
+            ) : (
+              <CheckCircleOutline className='orange-color icon' />
+            )}
             {(props.message && props.message) || (props.error && props.error)}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={(e: MouseEvent<HTMLButtonElement>) => props.handleClose(e)}
-            // color='primary'
+            className='orange-color'
           >
             Close
           </Button>

@@ -1,5 +1,5 @@
 import React from "react";
-import Routes from "./components/routes/index.routes";
+import Routes from "./components/routes/indexRoutes";
 import axios from "axios";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";

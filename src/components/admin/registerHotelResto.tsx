@@ -28,7 +28,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import NavButtons from "../admin/navButton";
 import { IHotelRestoParams, IErrors } from "../../store/hotelResto/types";
-import ModalBox from "../helper/modal.box";
+import ModalBox from "../helper/modalBox";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,15 +78,6 @@ const RegisterHotelResto = (props: Props) => {
     status,
     bouquet
   } = state;
-  const data: IHotelRestoParams = {
-    name,
-    images,
-    category,
-    description,
-    location,
-    status,
-    bouquet
-  };
   let { next, back, active } = state;
   const {
     errors,
@@ -170,49 +161,38 @@ const RegisterHotelResto = (props: Props) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-  const onHandleFiles = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    // const { name, files } = e.target;
-    setState({ ...state, images: e.target.files });
-    console.log("image", images);
-  };
-
   useEffect(() => {
     if (message || errors) {
       setModalState({ ...modalState, open: true });
       setState({ ...state, spinner: false });
     }
-    //   if (message) {
-    //     setState({
-    //       ...state,
-    //       name: "",
-    //       images: [],
-    //       category: "",
-    //       description: "",
-    //       location: "",
-    //       status: "",
-    //       bouquet: ""
-    //     });
-    //   }
     // eslint-disable-next-line
   }, [props.hotelRestoReducer]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setState({ ...state, spinner: true });
-    const info: any = new FormData();
-    info.append("name", name);
-    info.append("category", category);
-    info.append("description", description);
-    info.append("location", location);
-    info.append("status", status);
-    info.append("bouquet", bouquet);
-    info.append("files", images);
-    // info.append("files", image, image.name);
+    const info = {
+      name,
+      category,
+      description,
+      location,
+      status,
+      bouquet,
+      images
+    };
     props.hotelRestoRegister(info);
   };
   const handleClose = (event: MouseEvent<HTMLElement>) => {
     setModalState({ ...modalState, open: false });
+  };
+
+  const onHandleFileImages = (f: File[]) => {
+    setState({ ...state, images: f });
+  };
+
+  const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, images: e.target.files });
   };
 
   const classes = useStyles();
@@ -224,6 +204,7 @@ const RegisterHotelResto = (props: Props) => {
         state={modalState}
         message={message}
         error={errors && errors.statusText}
+        title={"Register a new"}
       />
       <div className='content-form'>
         <Box display='flex' justifyContent='flex-start' pl={10}>
@@ -237,7 +218,7 @@ const RegisterHotelResto = (props: Props) => {
           <Card className='card'>
             <CardContent>
               <CssBaseline />
-              <form className={classes.root} noValidate onSubmit={onSubmit}>
+              <form className={classes.root} onSubmit={onSubmit}>
                 {active === "restaurent" && (
                   <BasicInfo state={state} onChange={onChange} />
                 )}
@@ -251,7 +232,9 @@ const RegisterHotelResto = (props: Props) => {
                   <Upload
                     state={state}
                     onChange={onChange}
-                    onHandleFiles={onHandleFiles}
+                    // onHandleFiles={onHandleFiles}
+                    onHandleFileImages={onHandleFileImages}
+                    onChangeImage={onChangeImage}
                   />
                 )}
                 <Box display='flex' p={1}>

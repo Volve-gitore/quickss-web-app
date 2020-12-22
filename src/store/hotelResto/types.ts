@@ -15,7 +15,7 @@ export interface ISubErrors {
 export interface IHotelRestoParams {
   id?: string;
   name: string;
-  images: string;
+  images: any;
   category: string;
   description: string;
   location: string;

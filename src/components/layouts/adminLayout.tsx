@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ChangeEvent } from "react";
 import "../../assets/scss/hotelResto.scss";
 import Header from "../helper/header";
 import clsx from "clsx";
@@ -16,6 +16,7 @@ import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { mainListItems } from "./listItems";
+import { InputBase } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -105,10 +106,33 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     height: 240
+  },
+  inputRoot: {
+    // color: "inherit"
+    borderRadius: 20
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "20ch",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch"
+      }
+    }
   }
 }));
 
-const PurchaseFloat: FunctionComponent = props => {
+type Props = {
+  state?: any;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
+  children?: any;
+};
+const PurchaseFloat = (props: Props) => {
+  const { onChange, state, children } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -144,7 +168,7 @@ const PurchaseFloat: FunctionComponent = props => {
             noWrap
             className={classes.title}
           >
-            <Header />
+            <Header onChange={onChange} state={state} />
           </Typography>
         </Toolbar>
       </AppBar>
@@ -170,7 +194,7 @@ const PurchaseFloat: FunctionComponent = props => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth='lg' className={classes.container}>
-          {props.children}
+          {children}
           <Box pt={4}>
             <Copyright />
           </Box>

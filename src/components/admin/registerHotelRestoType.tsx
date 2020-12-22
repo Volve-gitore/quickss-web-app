@@ -1,5 +1,3 @@
-import { IErrors } from "../../store/hotelResto/types";
-
 export type IHotelRestoState = {
   name: string;
   images: any;

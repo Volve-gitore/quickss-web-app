@@ -5,7 +5,6 @@ import ViewHotelResto from "../admin/viewHotelResto";
 const AdminRoutes: FunctionComponent = () => {
   return (
     <Switch>
-      <Route path='/' exact component={ViewHotelResto} />
       <Route path='/view-hotel-resto' exact component={ViewHotelResto} />
       <Route path='/add-hotel-resto' exact component={RegisterHotelResto} />
     </Switch>

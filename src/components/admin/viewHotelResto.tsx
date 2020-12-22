@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import Layout from "../layouts/adminLayout";
 import { Box } from "@material-ui/core";
@@ -16,6 +16,9 @@ const connector = connect(mapStateToProps, { hotelRestoView });
 type Props = ConnectedProps<typeof connector>;
 
 const ViewHotelResto = ({ hotelRestoReducer, hotelRestoView }: Props) => {
+  const [state, setState] = useState<any>({
+    search: ""
+  });
   useEffect(() => {
     hotelRestoView();
     // eslint-disable-next-line
@@ -27,8 +30,13 @@ const ViewHotelResto = ({ hotelRestoReducer, hotelRestoView }: Props) => {
     allHotelResto: IHotelRestoParams[];
   } = hotelRestoReducer;
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
+  };
+
   return (
-    <Layout>
+    <Layout state={state} onChange={onChange && onChange}>
       <div className='content'>
         <Box display='flex' justifyContent='flex-start' pl={10}>
           <Box ml={4} mr={4}>

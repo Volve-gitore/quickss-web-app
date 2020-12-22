@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import "../../assets/scss/hotelResto.scss";
 import {
   Box,
@@ -60,12 +60,10 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
       zIndex: 1
     },
     inputRoot: {
-      // color: "inherit"
       borderRadius: 20
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),
       width: "20ch",
@@ -79,7 +77,13 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header = () => {
+type Props = {
+  state: any;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  children?: any;
+};
+
+const Header = (props: Props) => {
   const classes = useToolbarStyles();
   return (
     <div className='content-header'>
@@ -97,7 +101,9 @@ const Header = () => {
                 input: classes.inputInput
               }}
               inputProps={{ "aria-label": "search" }}
+              // onChange={(e: ChangeEvent<HTMLInputElement>) => props.onChange(e)}
             />
+            {props.children}
           </div>
         </Box>
         <Box p={1}>

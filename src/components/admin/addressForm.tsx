@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import "../../assets/scss/hotelResto.scss";
 import { TextField, Box } from "@material-ui/core";
 import { IHotelRestoState } from "./registerHotelRestoType";
@@ -9,19 +9,9 @@ type Props = {
 };
 
 const AddressForm = (props: Props) => {
-  const [currency, setCurrency] = React.useState("");
-
   const { state, onChange } = props;
   const { location, mapUrl, province, district, sector } = state;
 
-  const handleChange = (event: any) => {
-    setCurrency(event.target.value);
-  };
-
-  const style = {
-    width: "300px",
-    height: "450px"
-  };
   return (
     <Box display='flex'>
       <Box style={{ width: "50%" }}>
@@ -104,6 +94,7 @@ const AddressForm = (props: Props) => {
           variant='outlined'
           margin='normal'
           required
+          fullWidth
           id='mapUrl'
           label='Map url'
           name='mapUrl'

@@ -6,7 +6,7 @@ import {
   IHotelRestoParams
 } from "./types";
 import { AppThunk } from "../configureStore";
-import { dispatchHandler } from "../helper/helper.mothodes";
+import { dispatchHandler } from "../helper/helperMothodes";
 
 export const hotelRestoRegister = (
   formData: IHotelRestoParams
@@ -18,8 +18,16 @@ export const hotelRestoRegister = (
         "Content-Type": "multipart/form-data"
       }
     };
+    const info: any = new FormData();
+    info.append("name", formData.name);
+    info.append("category", formData.category);
+    info.append("description", formData.description);
+    info.append("location", formData.location);
+    info.append("status", formData.status);
+    info.append("bouquet", formData.bouquet);
+    info.append("image", formData.images[0]);
     const URL = "/api/hotel-resto";
-    const { data } = await axios.post(URL, formData, header);
+    const { data } = await axios.post(URL, info, header);
     if (data) {
       dispatchHandler({
         type: REGISTER_HOTEL_RESTO,

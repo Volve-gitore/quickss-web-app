@@ -1,0 +1,27 @@
+@import "../../../assets/scss/color.style.scss";
+
+.root {
+  flex-grow: 1;
+}
+.paper {
+  padding: 8px !important;
+  text-align: center !important;
+  color: $orangeColor !important;
+  height: 55vh !important;
+  border-radius: 15 !important;
+}
+.margin {
+  margin-top: 16px !important;
+}
+.color {
+  background-color: $orangeColor !important;
+  margin-top: 16px !important;
+  color: $whiteColor !important;
+}
+// .authcard {
+//   background-color: $greyColor !important;
+//   display: flex !important;
+//   justify-content: center !important;
+//   height: 100vh !important;
+//   align-items: center !important;
+// }
