@@ -6,11 +6,6 @@ import {
   IHotelRestoParams
 } from "./types";
 
-// export interface IInitial {
-//   errors: string[] | string | undefined;
-//   allHotelResto: IHotelRestoParams[];
-// }
-
 const initialState = {
   errors: null,
   allHotelResto: []

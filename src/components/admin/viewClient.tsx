@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from "react-redux";
 import Layout from "../layouts/adminLayout";
 import { Box } from "@material-ui/core";
 import { AppState } from "../../store/configureStore";
-import { hotelRestoView } from "../../store/hotelResto/actions";
-import { IHotelRestoParams } from "../../store/hotelResto/types";
+import { hotelRestoView } from "../../store/client/actions";
+import { IHotelRestoParams } from "../../store/client/types";
 import { Star, LocationOn } from "@material-ui/icons";
 
 const mapStateToProps = (state: AppState) => ({
@@ -19,6 +19,7 @@ const ViewHotelResto = ({ hotelRestoReducer, hotelRestoView }: Props) => {
   const [state, setState] = useState<any>({
     search: ""
   });
+  const {search} = state;
   useEffect(() => {
     hotelRestoView();
     // eslint-disable-next-line
@@ -36,7 +37,7 @@ const ViewHotelResto = ({ hotelRestoReducer, hotelRestoView }: Props) => {
   };
 
   return (
-    <Layout state={state} onChange={onChange && onChange}>
+    <Layout state={state} onChange={onChange}>
       <div className='content'>
         <Box display='flex' justifyContent='flex-start' pl={10}>
           <Box ml={4} mr={4}>
@@ -45,7 +46,19 @@ const ViewHotelResto = ({ hotelRestoReducer, hotelRestoView }: Props) => {
         </Box>
         <Box display='flex' flexWrap='wrap' className='hotel-resto-list'>
           {allHotelResto &&
-            allHotelResto.map(item => (
+            allHotelResto
+            .filter((item) => {
+                  return (
+                    item.name &&
+                    item.name
+                      .toLowerCase()
+                      .indexOf(search && search.toLowerCase()) >= 0 || item.location &&
+                      item.location
+                        .toLowerCase()
+                        .indexOf(search && search.toLowerCase()) >= 0
+                  );
+                })
+            .map(item => (
               <Box
                 mr={4}
                 ml={4}

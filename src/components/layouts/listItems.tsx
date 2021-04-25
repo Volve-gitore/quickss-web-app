@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export const mainListItems = (
   <div>
     <Link
-      to='/view-hotel-resto'
+      to='/view-client'
       style={{ color: "#000", textDecoration: "none" }}
     >
       <ListItem button>
@@ -20,7 +20,7 @@ export const mainListItems = (
       </ListItem>
     </Link>
     <Link
-      to='/add-hotel-resto'
+      to='/add-client'
       style={{ color: "#000", textDecoration: "none" }}
     >
       <ListItem button>

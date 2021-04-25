@@ -1,7 +1,7 @@
 import React, { FormEvent } from "react";
 import "../../assets/scss/navButtons.scss";
 import { Button } from "@material-ui/core";
-import { IHotelRestoState } from "./registerHotelRestoType";
+import { IHotelRestoState } from "./registerClientType";
 
 type Props = {
   state: IHotelRestoState;

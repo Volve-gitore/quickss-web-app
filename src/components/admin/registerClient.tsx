@@ -21,13 +21,13 @@ import Contact from "./contactForm";
 import Address from "./addressForm";
 import Upload from "./uploadForm";
 import { connect, ConnectedProps } from "react-redux";
-import { hotelRestoRegister } from "../../store/hotelResto/actions";
+import { hotelRestoRegister } from "../../store/client/actions";
 import { AppState } from "../../store/configureStore";
-import { IHotelRestoState, IModalState } from "./registerHotelRestoType";
+import { IHotelRestoState, IModalState } from "./registerClientType";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import NavButtons from "../admin/navButton";
-import { IHotelRestoParams, IErrors } from "../../store/hotelResto/types";
+import NavButtons from "./navButton";
+import { IHotelRestoParams, IErrors } from "../../store/client/types";
 import ModalBox from "../helper/modalBox";
 
 const useStyles = makeStyles((theme: Theme) =>

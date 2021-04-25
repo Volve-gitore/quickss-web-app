@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { Route, Switch } from "react-router-dom";
-import RegisterHotelResto from "../admin/registerHotelResto";
-import ViewHotelResto from "../admin/viewHotelResto";
+import RegisterClient from "../admin/registerClient";
+import ViewClient from "../admin/viewClient";
 const AdminRoutes: FunctionComponent = () => {
   return (
     <Switch>
-      <Route path='/view-hotel-resto' exact component={ViewHotelResto} />
-      <Route path='/add-hotel-resto' exact component={RegisterHotelResto} />
+      <Route path='/view-client' exact component={ViewClient} />
+      <Route path='/add-client' exact component={RegisterClient} />
     </Switch>
   );
 };

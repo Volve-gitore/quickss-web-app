@@ -16,7 +16,7 @@ const Menu = () => {
             <HomeIcon />
           </div>{" "}
           <div className='title'>
-            <Link className='btn-link text-black' to='view-hotel-resto'>
+            <Link className='btn-link text-black' to='view-client'>
               Home
             </Link>
           </div>{" "}
@@ -27,7 +27,7 @@ const Menu = () => {
             <AddBox />
           </div>{" "}
           <div className='title'>
-            <Link className='btn-link text-black' to='add-hotel-resto'>
+            <Link className='btn-link text-black' to='add-client'>
               Add Restaurent
             </Link>
           </div>

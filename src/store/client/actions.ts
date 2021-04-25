@@ -26,7 +26,7 @@ export const hotelRestoRegister = (
     info.append("status", formData.status);
     info.append("bouquet", formData.bouquet);
     info.append("image", formData.images[0]);
-    const URL = "/api/hotel-resto";
+    const URL = "/api/clients";
     const { data } = await axios.post(URL, info, header);
     if (data) {
       dispatchHandler({
@@ -50,7 +50,7 @@ export const hotelRestoRegister = (
 export const hotelRestoView = (): AppThunk => async dispatch => {
   dispatchHandler({ type: ERRORS, data: null, dispatch });
   try {
-    const URL = "/api/hotel-resto";
+    const URL = "/api/clients";
     const { data } = await axios.get(URL);
     if (data) {
       dispatchHandler({

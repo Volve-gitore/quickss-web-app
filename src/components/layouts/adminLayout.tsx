@@ -128,7 +128,7 @@ const useStyles = makeStyles(theme => ({
 
 type Props = {
   state?: any;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   children?: any;
 };
 const PurchaseFloat = (props: Props) => {

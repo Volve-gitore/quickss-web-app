@@ -14,7 +14,7 @@ export const authActions = (
       dispatchHandler({ type: LOGIN, data: data, dispatch });
       localStorage.setItem("QUICKSS-USER-TOKEN", data.token);
       localStorage.setItem("QUICKSS-USER-ROLE", data.user.role);
-      window.location.href = "/view-hotel-resto";
+      window.location.href = "/view-client";
     }
   } catch (error) {
     if (error) {

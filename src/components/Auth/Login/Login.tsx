@@ -18,7 +18,7 @@ import { authActions } from "../../../store/auth/actions";
 import { TextField, CircularProgress } from "@material-ui/core";
 import { Visibility, Lock, Person } from "@material-ui/icons";
 import { IState } from "./types";
-import { IModalState } from "../../admin/registerHotelRestoType";
+import { IModalState } from "../../admin/registerClientType";
 import { IErrors } from "../../../store/auth/types";
 import ModalBox from "../../helper/modalBox";
 

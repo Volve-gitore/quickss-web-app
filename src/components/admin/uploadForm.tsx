@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { IHotelRestoState } from "./registerHotelRestoType";
+import { IHotelRestoState } from "./registerClientType";
 
 type Props = {
   state: IHotelRestoState;

@@ -15,6 +15,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import { Notifications, ExpandMore } from "@material-ui/icons";
 import profile from "../../assets/images/profile.jpg";
+import {  useLocation } from "react-router-dom";
 
 const useToolbarStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,20 +80,24 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   state: any;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: any;
   children?: any;
 };
 
 const Header = (props: Props) => {
+  const {onChange} = props;
   const classes = useToolbarStyles();
+  const location = useLocation();
   return (
     <div className='content-header'>
       <Box display='flex' p={1}>
         <Box p={1} flexGrow={1}>
+        {location.pathname === "/view-client" ?
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+            
             <InputBase
               style={{ backgroundColor: "white" }}
               placeholder='Search…'
@@ -100,11 +105,15 @@ const Header = (props: Props) => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
+              name="search"
               inputProps={{ "aria-label": "search" }}
-              // onChange={(e: ChangeEvent<HTMLInputElement>) => props.onChange(e)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
             />
+            
             {props.children}
           </div>
+          : ""
+        }
         </Box>
         <Box p={1}>
           <IconButton color='inherit'>

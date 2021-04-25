@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "../../assets/scss/hotelResto.scss";
 import { TextField, Box } from "@material-ui/core";
-import { IHotelRestoState } from "./registerHotelRestoType";
+import { IHotelRestoState } from "./registerClientType";
 
 type Props = {
   state: IHotelRestoState;
