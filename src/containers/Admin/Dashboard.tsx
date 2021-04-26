@@ -16,13 +16,16 @@ const Dashboard = () => {
       };
 
     return (
+        <BrowserRouter>
         <Layout onChange={onChange}>
-            <BrowserRouter>
-                <Route path='/admin/dashboard' exact component={() => <ClientList state={state} />} />
-                <Route path='/admin/view-client' exact component={() => <ClientList state={state} />} />
-                <Route path='/admin/add-client' exact component={() => <ClientRegistration />} />
-            </BrowserRouter>
+            
+            <Switch>
+                <Route path='/admin/client/list' exact component={() => <ClientList state={state} />} />
+                <Route path='/admin/client/add' exact component={() => <ClientRegistration />} />
+            </Switch>
+           
         </Layout>
+        </BrowserRouter>
     )
 }
 
