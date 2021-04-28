@@ -1,10 +1,9 @@
 import React from "react";
-import Routes from "./components/routes/indexRoutes";
+import Routes from "./routes";
 import axios from "axios";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
-axios.defaults.baseURL = "https://quickss-backend.herokuapp.com";
-// axios.defaults.baseURL = "http://192.168.43.187:3000";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
 const store = configureStore();
 function App() {
   return (
