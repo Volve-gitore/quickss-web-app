@@ -25,7 +25,7 @@ import { hotelRestoRegister } from "../../../../store/admin/actions";
 import { IHotelRestoState, IModalState } from "./type";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import NavButtons from "./navButton";
+import NavButtons from "./NavButtons";
 import { IHotelRestoParams, IErrors } from "../../../../store/admin/types";
 import { AppState } from "../../../../store/configureStore";
 import ModalBox from "../../../UI/modalBox";

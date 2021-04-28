@@ -1,32 +1,15 @@
-import React, { useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Box } from "@material-ui/core";
-import { AppState } from "../../../store/configureStore";
-import { hotelRestoView } from "../../../store/admin/actions";
 import { IHotelRestoParams } from "../../../store/admin/types";
 import { Star, LocationOn } from "@material-ui/icons";
 
 type Props = {
   state:any;
+  client:IHotelRestoParams[];
 };
 
-const ViewHotelResto = (props: Props) => {
-  const {state} = props;
-  const hotelRestoReducer = useSelector(
-    (state: AppState) => state.hotelResto
-  );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(hotelRestoView());  
-    // eslint-disable-next-line
-  }, []);
-
-  const {
-    allHotelResto
-  }: {
-    allHotelResto: IHotelRestoParams[];
-  } = hotelRestoReducer;
-
+const ClientList = (props: Props) => {
+  const {client, state} = props;
   return (
       <div className='content'>
         <Box display='flex' justifyContent='flex-start' pl={10}>
@@ -35,8 +18,8 @@ const ViewHotelResto = (props: Props) => {
           </Box>
         </Box>
         <Box display='flex' flexWrap='wrap' className='hotel-resto-list'>
-          {allHotelResto &&
-            allHotelResto
+          {client &&
+            client
             .filter((item) => {
                   return (
                     item.name &&
@@ -97,4 +80,4 @@ const ViewHotelResto = (props: Props) => {
       </div>
   );
 };
-export default ViewHotelResto;
+export default ClientList;

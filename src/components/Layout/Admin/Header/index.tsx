@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import "../../../assets/scss/hotelResto.scss";
+import "../../../../assets/scss/hotelResto.scss";
 import {
   Box,
   makeStyles,
@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Notifications, ExpandMore } from "@material-ui/icons";
-import profile from "../../../assets/images/profile.jpg";
+import profile from "../../../../assets/images/profile.jpg";
 import {  useLocation } from "react-router-dom";
 
 const useToolbarStyles = makeStyles((theme: Theme) =>

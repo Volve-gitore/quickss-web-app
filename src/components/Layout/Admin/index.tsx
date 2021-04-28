@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
 import "../../../assets/scss/hotelResto.scss";
-import Header from "./header";
+import Header from "./Header";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,7 +15,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Container from "@material-ui/core/Container";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { mainListItems } from "./listItems";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { AddBox } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
 
 function Copyright() {
   return (
@@ -170,7 +173,8 @@ const PurchaseFloat = (props: Props) => {
           </Typography>
         </Toolbar>
       </AppBar>
-
+   
+{/* ------------------------------Left side--------------------------------------- */}
       <Drawer
         variant='permanent'
         classes={{
@@ -185,9 +189,32 @@ const PurchaseFloat = (props: Props) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <Link
+          to='/admin/client/list'
+          style={{ color: "#000", textDecoration: "none" }}
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Home' />
+          </ListItem>
+        </Link> 
+        <Link
+          to='/admin/client/add'
+          style={{ color: "#000", textDecoration: "none" }}
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <AddBox />
+            </ListItemIcon>
+            <ListItemText primary='Add new' />
+          </ListItem>
+        </Link>
         <Divider />
       </Drawer>
+{/* ------------------------------Left side--------------------------------------- */}
+
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth='lg' className={classes.container}>
