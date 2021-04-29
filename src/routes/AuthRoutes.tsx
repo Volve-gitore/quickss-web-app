@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
-import Signin from "../components/Auth/Signin";
+import Signin from "../containers/Auth/SignIn";
 
-const AuthRoutes: FunctionComponent = () => {
+const AuthRoutes: FC = () => {
   return (
     <Switch>
       <Route path='/' exact component={Signin} />

@@ -28,7 +28,7 @@ import CardContent from "@material-ui/core/CardContent";
 import NavButtons from "./navButton";
 import { IHotelRestoParams, IErrors } from "../../../../store/admin/types";
 import { AppState } from "../../../../store/configureStore";
-import ModalBox from "../../../UI/modalBox";
+import ModalBox from "../../../UI/Modal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
