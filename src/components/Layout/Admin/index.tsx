@@ -127,7 +127,7 @@ const AdminLayout = (props: Props) => {
 
             <Grid item xs>
               <main  className={classes.papers}>
-                 
+                 {props.children}
               </main>
             </Grid>
           </Grid>

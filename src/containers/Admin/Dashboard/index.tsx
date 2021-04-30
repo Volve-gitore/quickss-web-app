@@ -1,37 +1,63 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import Layout from "../../../components/Layout/Admin";
 import ClientRegistration from "../../../components/Admin/ClientRegistration/RegisterClient";
 import ClientList from "../../../components/Admin/ClientList";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../../../store/configureStore";
+import { getClients } from "../../../store/client/actions";
+import { IClient } from "../../../store/client/types";
+
 
 const Dashboard = () => {
-  const [state, setState] = useState<any>({
-    search: "",
-  });
+  const [searchKey, setSearchKey] = useState<String>("");
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getClients());
+    // eslint-disable-next-line
+  }, []);
+
+  const { clients } : {clients: IClient[]} = useSelector((state: AppState) => state.clients);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    const { value } = e.target;
+    setSearchKey(value);
   };
 
   return (
     <Layout onChange={onChange}>
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route
-            path="/admin/client/list"
+            path="/admin/dashboard"
             exact
-            component={() => <ClientList state={state} />}
+            component={() => <ClientList clients={clients} />}
           />
           <Route
-            path="/admin/client/add"
+            path="/admin"
             exact
-            component={() => <ClientRegistration />}
+            component={() => <h1>Hello</h1>}
           />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Layout>
   );
 };
 
 export default Dashboard;
+
+
+
+// .filter((item) => {
+//   return (
+//     (item.name &&
+//       item.name
+//         .toLowerCase()
+//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0) ||
+//     (item.location &&
+//       item.location
+//         .toLowerCase()
+//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0)
+//   );
+// })

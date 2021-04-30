@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LOGIN, ERRORS, ILoginParams } from "./types";
 import { AppThunk } from "../configureStore";
-import { dispatchHandler } from "../helper/helperMothodes";
+import { dispatchHandler } from "../helper/dispatchHandler";
 
 export const authActions = (
   formData: ILoginParams

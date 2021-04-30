@@ -34,7 +34,7 @@ const Navbar = (props: any) => {
                         <Link to="/">Home</Link>
                       </li>
                       <li>
-                        <Link to="/clients">Client</Link>
+                        <Link to="/admin/clients/register">Client</Link>
                       </li>
                       <li>
                         <Link to="/menu">Menu config</Link>

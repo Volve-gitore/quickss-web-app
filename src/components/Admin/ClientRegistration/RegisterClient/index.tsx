@@ -3,7 +3,7 @@ import React, {
   useState,
   ChangeEvent,
   MouseEvent,
-  useEffect
+  useEffect,
 } from "react";
 import "../../../../assets/scss/hotelResto.scss";
 import Layout from "../../../Layout/Admin";
@@ -14,19 +14,19 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  CircularProgress
+  CircularProgress,
 } from "@material-ui/core";
 import BasicInfo from "../BasicInformation";
 import Contact from "../Contact";
 import Address from "../Address";
 import Upload from "../Upload";
 import { connect, ConnectedProps } from "react-redux";
-import { hotelRestoRegister } from "../../../../store/admin/actions";
+import { registerClient } from "../../../../store/client/actions";
 import { IHotelRestoState, IModalState } from "./type";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import NavButtons from "./navButton";
-import { IHotelRestoParams, IErrors } from "../../../../store/admin/types";
+import { IClient, IErrors } from "../../../../store/client/types";
 import { AppState } from "../../../../store/configureStore";
 import ModalBox from "../../../UI/Modal";
 
@@ -35,16 +35,16 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       "& .MuiTextField-root": {
         padding: theme.spacing(1),
-        width: "100%"
-      }
-    }
+        width: "100%",
+      },
+    },
   })
 );
 
 const mapStateToProps = (state: AppState) => ({
-  hotelRestoReducer: state.hotelResto
+  hotelRestoReducer: state.clients,
 });
-const connector = connect(mapStateToProps, { hotelRestoRegister });
+const connector = connect(mapStateToProps, { registerClient });
 type Props = ConnectedProps<typeof connector>;
 const RegisterHotelResto = (props: Props) => {
   const [state, setState] = useState<IHotelRestoState>({
@@ -64,10 +64,10 @@ const RegisterHotelResto = (props: Props) => {
     next: 0,
     back: 3,
     active: "restaurent",
-    spinner: false
+    spinner: false,
   });
   const [modalState, setModalState] = useState<IModalState>({
-    open: false
+    open: false,
   });
   const {
     name,
@@ -76,14 +76,14 @@ const RegisterHotelResto = (props: Props) => {
     description,
     location,
     status,
-    bouquet
+    bouquet,
   } = state;
   let { next, back, active } = state;
   const {
     errors,
-    message
+    message,
   }: {
-    allHotelResto: IHotelRestoParams[];
+    clients: IClient[];
     errors: IErrors;
     message: string;
   } = props.hotelRestoReducer;
@@ -95,7 +95,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next - 1,
         back: back + 1,
-        active: "restaurent"
+        active: "restaurent",
       });
     }
     if (next === 2 && back === 1) {
@@ -103,7 +103,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next - 1,
         back: back + 1,
-        active: "contact"
+        active: "contact",
       });
     }
     if (next === 3 && back === 0) {
@@ -111,7 +111,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next - 1,
         back: back + 1,
-        active: "address"
+        active: "address",
       });
     }
   };
@@ -122,7 +122,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next + 1,
         back: back - 1,
-        active: "contact"
+        active: "contact",
       });
     }
     if (next === 1 && back === 2) {
@@ -130,7 +130,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next + 1,
         back: back - 1,
-        active: "address"
+        active: "address",
       });
     }
     if (next === 2 && back === 1) {
@@ -138,7 +138,7 @@ const RegisterHotelResto = (props: Props) => {
         ...state,
         next: next + 1,
         back: back - 1,
-        active: "upload"
+        active: "upload",
       });
     }
   };
@@ -179,9 +179,9 @@ const RegisterHotelResto = (props: Props) => {
       location,
       status,
       bouquet,
-      images
+      images,
     };
-    props.hotelRestoRegister(info);
+    props.registerClient(info);
   };
   const handleClose = (event: MouseEvent<HTMLElement>) => {
     setModalState({ ...modalState, open: false });
@@ -203,11 +203,11 @@ const RegisterHotelResto = (props: Props) => {
         handleClose={handleClose}
         state={modalState}
         message={message}
-        error={errors && errors.statusText}
+        error={errors && errors.message}
         title={"Register a new"}
       />
-      <div className='content-form'>
-        <Box display='flex' justifyContent='flex-start' pl={10}>
+      <div className="content-form">
+        <Box display="flex" justifyContent="flex-start" pl={10}>
           <Box ml={4} mr={4}>
             <h1> Add a new Hotels or Restorants </h1>
           </Box>
@@ -215,7 +215,7 @@ const RegisterHotelResto = (props: Props) => {
 
         <Box pl={14} pr={14}>
           <NavButtons onSaveAndContinue={onSaveAndContinue} state={state} />
-          <Card className='card'>
+          <Card className="card">
             <CardContent>
               <CssBaseline />
               <form className={classes.root} onSubmit={onSubmit}>
@@ -237,13 +237,13 @@ const RegisterHotelResto = (props: Props) => {
                     onChangeImage={onChangeImage}
                   />
                 )}
-                <Box display='flex' p={1}>
+                <Box display="flex" p={1}>
                   <Box flexGrow={1}>
                     {next !== 0 && back !== 3 && (
                       <Button
-                        type='submit'
-                        variant='contained'
-                        className='default-btn'
+                        type="submit"
+                        variant="contained"
+                        className="default-btn"
                         onClick={(e: FormEvent<HTMLButtonElement>) => onBack(e)}
                       >
                         back
@@ -253,9 +253,9 @@ const RegisterHotelResto = (props: Props) => {
                   <Box>
                     {next === 3 && back === 0 ? (
                       <Button
-                        type='submit'
-                        variant='contained'
-                        className='orange-btn'
+                        type="submit"
+                        variant="contained"
+                        className="orange-btn"
                       >
                         {state.spinner ? (
                           <CircularProgress size={25} />
@@ -265,9 +265,9 @@ const RegisterHotelResto = (props: Props) => {
                       </Button>
                     ) : (
                       <Button
-                        type='submit'
-                        variant='contained'
-                        className='orange-btn'
+                        type="submit"
+                        variant="contained"
+                        className="orange-btn"
                         onClick={(e: FormEvent<HTMLButtonElement>) => onNext(e)}
                       >
                         save&continue

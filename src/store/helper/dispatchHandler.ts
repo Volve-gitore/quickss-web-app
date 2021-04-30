@@ -7,6 +7,6 @@ export const dispatchHandler: <T>(params: {
 }) => void = ({ type, data, dispatch }) => {
   dispatch({
     type,
-    payload: data
+    payload: data,
   });
 };

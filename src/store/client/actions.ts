@@ -1,22 +1,17 @@
 import axios from "axios";
-import {
-  REGISTER_HOTEL_RESTO,
-  ERRORS,
-  GET_ALL_HOTEL_RESTO,
-  IHotelRestoParams
-} from "./types";
+import { ERRORS, IClient, REGISTER_CLIENT, GET_ALL_CLIENTS } from "./types";
 import { AppThunk } from "../configureStore";
-import { dispatchHandler } from "../helper/helperMothodes";
+import { dispatchHandler } from "../helper/dispatchHandler";
 
-export const hotelRestoRegister = (
-  formData: IHotelRestoParams
-): AppThunk => async dispatch => {
+export const registerClient = (formData: IClient): AppThunk => async (
+  dispatch
+) => {
   dispatchHandler({ type: ERRORS, data: null, dispatch });
   try {
     const header = {
       headers: {
-        "Content-Type": "multipart/form-data"
-      }
+        "Content-Type": "multipart/form-data",
+      },
     };
     const info: any = new FormData();
     info.append("name", formData.name);
@@ -26,13 +21,16 @@ export const hotelRestoRegister = (
     info.append("status", formData.status);
     info.append("bouquet", formData.bouquet);
     info.append("image", formData.images[0]);
+
     const URL = "/api/clients";
     const { data } = await axios.post(URL, info, header);
     if (data) {
+      console.log(":::", data);
+
       dispatchHandler({
-        type: REGISTER_HOTEL_RESTO,
+        type: REGISTER_CLIENT,
         data: "successfully registered.",
-        dispatch
+        dispatch,
       });
     }
   } catch (error) {
@@ -41,22 +39,22 @@ export const hotelRestoRegister = (
       return dispatchHandler({
         type: ERRORS,
         data,
-        dispatch
+        dispatch,
       });
     }
   }
 };
 
-export const hotelRestoView = (): AppThunk => async dispatch => {
+export const getClients = (): AppThunk => async (dispatch) => {
   dispatchHandler({ type: ERRORS, data: null, dispatch });
   try {
     const URL = "/api/clients";
     const { data } = await axios.get(URL);
     if (data) {
       dispatchHandler({
-        type: GET_ALL_HOTEL_RESTO,
+        type: GET_ALL_CLIENTS,
         data: data.items,
-        dispatch
+        dispatch,
       });
     }
   } catch (error) {
@@ -65,9 +63,8 @@ export const hotelRestoView = (): AppThunk => async dispatch => {
       return dispatchHandler({
         type: ERRORS,
         data,
-        dispatch
+        dispatch,
       });
     }
   }
 };
-
