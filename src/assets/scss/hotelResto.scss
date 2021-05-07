@@ -98,14 +98,14 @@ li {
   }
 }
 .content {
-  display: grid;
+  // display: grid;
   .nav-link {
     text-decoration: none;
   }
   .hotel-resto-list {
     // width: 100%;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     .hotel-resto-item {
       background-color: $whiteColor;
       border-radius: 15px;

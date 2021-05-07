@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent } from "react";
-import "../../assets/scss/hotelResto.scss";
+// import "../../assets/scss/hotelResto.scss";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,107 +14,61 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import AddBox from "@material-ui/icons/AddBox";
 import { Link } from "react-router-dom";
+import "./style.scss";
+import Hidden from "@material-ui/core/Hidden";
 
-const drawerWidth = 240;
+interface IItem {
+  label: string;
+  link: string;
+  icon: string;
+}
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-  },
-  drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  fixedHeight: {
-    height: 240,
-  },
-}));
-
-type Props = {
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  children?: any;
-};
-const SideMenu = (props: Props) => {
-  const { onChange, children } = props;
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+interface IMenuItems {
+  items: IItem[];
+}
+const SideMenu = (props: IMenuItems) => {
+  const menuItems = props.items;
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <h1 style={{ alignContent: "center", margin: "auto" }}>Quickss</h1>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <Link
-            to="/admin/client/list"
-            style={{ color: "#000", textDecoration: "none" }}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-          </Link>
-          <Link
-            to="/admin/client/add"
-            style={{ color: "#000", textDecoration: "none" }}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
-              <ListItemText primary="Add new" />
-            </ListItem>
-          </Link>
-        </List>
-        <Divider />
-      </Drawer>
+    <div>
+      <nav className="menu-left">
+        <ul>
+          {menuItems &&
+            menuItems.map((item: IItem) => (
+              <li className="menu-item" key={item.label}>
+                <Link to={item.link}>
+                  <i className={item.icon}></i>
+                  <Hidden  only="sm">{item.label}</Hidden>
+                </Link>
+              </li>
+            ))}
+
+          {/* <li className="menu-item">
+            <i className="fas fa-box-open"></i>
+            <Link to="/">Add product</Link>
+          </li>
+          <li className="menu-item">
+            <i className="fab fa-gg-circle"></i>
+            <Link to="/clients">Add group</Link>
+          </li>
+          <li className="menu-item">
+            <i className="fas fa-layer-group"></i>
+            <Link to="/menu">Add category</Link>
+          </li>
+          <li className="menu-item">
+            <i className="fas fa-object-group"></i>
+            <Link to="/menu">Add sub-category</Link>
+          </li>
+          <li className="menu-item">
+            <i className="fas fa-utensils"></i>
+            <Link to="/menu">Add type</Link>
+          </li>
+          <li className="menu-item">
+            <i className="fas fa-bars"></i>
+            <Link to="/menu">Menu</Link>
+          </li> */}
+        </ul>
+      </nav>
     </div>
   );
 };

@@ -33,12 +33,11 @@ import { Notifications, ExpandMore } from "@material-ui/icons";
 import profile from "../../../assets/images/profile.jpg";
 import "./style.scss";
 import Navbar from "../../Navbar";
-import SideMenu from "../../SideMenu";
+// import SideMenu from "../../SideMenu";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Footer from "../../Footer";
-
- 
+import SideMenu from "../../SideMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,21 +64,41 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+ 
+
+interface ISubMenuItems {
+  label: string;
+  link: string;
+  icon: string;
+}
+
+
+
+
 type Props = {
-  state?: any;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
+  onSearch?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
   children?: any;
+  searchKey?: string;
+  subMenuItems?: ISubMenuItems[];
 };
 const AdminLayout = (props: Props) => {
-  const { onChange, state, children } = props;
+  const { children, subMenuItems, searchKey, onSearch } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+
+  const menuItems = [
+    {
+      label: "Home",
+      link: "/admin/dashboard",
+    },
+    {
+      label: "Clients",
+      link: "/admin/clients",
+    },
+    {
+      label: "Users",
+      link: "/admin/users",
+    },
+  ];
 
   return (
     <>
@@ -88,47 +107,19 @@ const AdminLayout = (props: Props) => {
           <Grid container spacing={3}>
             {/* Top navigation bar */}
             <Grid item xs={12} style={{ height: "12vh" }}>
-              <Navbar />
+              <Navbar menuItems={menuItems} searchKey={searchKey} onSearch={onSearch} />
             </Grid>
-
-            {/* Left side menu */}
-            <Grid item xs={12} sm={3}>
-              {/* <Paper className={classes.papers}> */}
-              <nav className="menu-left">
-                <ul>
-                  <li className="menu-item">
-                    <i className="fas fa-box-open"></i>
-                    <Link className="menu-item" to="/">Add product</Link>
-                  </li>
-                  <li className="menu-item">
-                    <i className="fab fa-gg-circle"></i>
-                    <Link className="menu-item" to="/clients">Add group</Link>
-                  </li>
-                  <li className="menu-item">
-                    <i className="fas fa-layer-group"></i>
-                    <Link className="menu-item" to="/menu">Add category</Link>
-                  </li>
-                  <li className="menu-item">
-                    <i className="fas fa-object-group"></i>
-                    <Link className="menu-item" to="/menu">Add sub-category</Link>
-                  </li>
-                  <li className="menu-item">
-                    <i className="fas fa-utensils"></i>
-                    <Link className="menu-item" to="/menu">Add type</Link>
-                  </li>
-                  <li className="menu-item">
-                    <i className="fas fa-bars"></i>
-                    <Link className="menu-item" to="/menu">Menu</Link>
-                  </li>
-                </ul>
-              </nav>
-              {/* </Paper> */}
-            </Grid>
+            {subMenuItems && (
+              // Left side menu
+              <Grid item xs={12} sm={2}>
+                {/* <Paper className={classes.papers}> */}
+                <SideMenu items={subMenuItems} />
+                {/* </Paper> */}
+              </Grid>
+            )}
 
             <Grid item xs>
-              <main  className={classes.papers}>
-                 {props.children}
-              </main>
+              <main className={classes.papers}>{children}</main>
             </Grid>
           </Grid>
         </div>

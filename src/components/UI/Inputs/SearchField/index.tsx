@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchField = () => {
+const SearchField = (props: any) => {
+  const {searchKey, onSearch} = props;
   const classes = useStyles();
   return (
     <div className={classes.search}>
@@ -49,12 +50,13 @@ const SearchField = () => {
       <InputBase
         style={{ backgroundColor: "white" }}
         placeholder="Search…"
+        value={searchKey}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
         inputProps={{ "aria-label": "search" }}
-        // onChange={(e: ChangeEvent<HTMLInputElement>) => props.onChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => onSearch(e)}
       />
     </div>
   );

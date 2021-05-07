@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,7 +12,19 @@ import SearchField from "../UI/Inputs/SearchField";
 import useStyles from "./style";
 import "./style.scss";
 
-const Navbar = (props: any) => {
+interface IItem {
+  label: string;
+  link: string;
+}
+
+interface IProps {
+  onSearch?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
+  menuItems: IItem[];
+  searchKey?: string;
+}
+
+const Navbar = (props: IProps) => {
+  const { menuItems, searchKey, onSearch } = props;
   const classes = useStyles();
 
   return (
@@ -22,29 +34,31 @@ const Navbar = (props: any) => {
           <div className={classes.block}>
             <Box display="flex" p={1}>
               <Box p={1} flexGrow={1}>
-                <SearchField />
+                <SearchField value={searchKey} onSearch={onSearch} />
               </Box>
               <Box p={1} flexGrow={1}>
-
                 {/* Hide navigation on smaller screens */}
                 <Hidden smDown>
                   <nav className="menu-top">
                     <ul>
-                      <li>
-                        <Link to="/">Home</Link>
-                      </li>
-                      <li>
+                      {menuItems &&
+                        menuItems.map((item: IItem) => (
+                          <li key={item.label}>
+                            <Link to={item.link}>{item.label}</Link>
+                          </li>
+                        ))}
+                      {/* <li>
                         <Link to="/admin/clients/register">Client</Link>
                       </li>
                       <li>
                         <Link to="/menu">Menu config</Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </nav>
                 </Hidden>
               </Box>
 
-                {/* Hide notification, profile and more on smaller screens */}
+              {/* Hide notification, profile and more on smaller screens */}
               <Hidden smDown>
                 <Box p={1}>
                   <IconButton color="inherit">

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
-import Layout from "../../../components/Layout/Admin";
+import Layout from "../../../components/Layout/Client";
 import ClientRegistration from "../../../components/Admin/ClientRegistration/RegisterClient";
 import ClientList from "../../../components/Admin/ClientList";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
@@ -8,55 +8,64 @@ import { AppState } from "../../../store/configureStore";
 import { getClients } from "../../../store/client/actions";
 import { IClient } from "../../../store/client/types";
 
-const Dashboard = () => {
-  const [searchKey, setSearchKey] = useState<String>("");
 
+const Clients = () => {
+  const [searchKey, setSearchKey] = useState<String>("");
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClients());
     // eslint-disable-next-line
   }, []);
 
-  const { clients }: { clients: IClient[] } = useSelector(
-    (state: AppState) => state.clients
-  );
+  const { clients } : {clients: IClient[]} = useSelector((state: AppState) => state.clients);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchKey(value);
   };
-  const menuItems = [
+  const subMenuItems = [
     {
-      label: "Home",
+      label: "Add product",
       link: "/admin/dashboard",
+      icon: "fas fa-box-open"
     },
     {
-      label: "Clients",
+      label: "Add group",
       link: "/admin/dashboard/clients",
+      icon: "fas fa-layer-group"
     },
     {
-      label: "Users",
+      label: "Add category",
       link: "/admin/dashboard/users",
+      icon: "fab fa-gg-circle"
     },
+    {
+      label: "Add sub-category",
+      link: "/admin/dashboard/users",
+      icon: "fas fa-object-group"
+    },
+    {
+      label: "Add type",
+      link: "/admin/dashboard/users",
+      icon: "fas fa-utensils"
+    },{
+      label: "Menu",
+      link: "/admin/dashboard/users",
+      icon: "fas fa-bars"
+    }
   ];
 
-
   return (
-    <Layout>
-      <Router>
-        <Switch>
-          <Route
-            path="/admin/dashboard"
-            exact
-            component={() => <div style={{width: "80%", margin: "auto"}}><ClientList clients={clients} /></div>}
-          />
-        </Switch>
-      </Router>
+    <Layout subMenuItems={subMenuItems}>
+     <h1>Coming soon!</h1>
     </Layout>
   );
 };
 
-export default Dashboard;
+export default Clients;
+
+
 
 // .filter((item) => {
 //   return (
