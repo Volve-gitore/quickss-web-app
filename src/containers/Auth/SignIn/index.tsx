@@ -14,7 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import { AppState } from "../../../store/configureStore";
-import { connect, ConnectedProps } from "react-redux";
+import { connect, ConnectedProps, useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../store/auth/actions";
 import { CircularProgress } from "@material-ui/core";
 import {
@@ -26,23 +26,34 @@ import {
 import ModalBox from "../../../components/UI/Modal";
 import TextField from "../../../components/UI/Inputs/TextInput";
 import "../../../assets/scss/main.scss";
+import { decode } from "jsonwebtoken";
 
-const mapStateToProps = (state: AppState) => ({
-  authReducer: state.auth,
-});
-
-const connector = connect(mapStateToProps, { authActions });
-
-type Props = ConnectedProps<typeof connector>;
+type Props = {
+  history: any;
+};
 
 const SignIn = (props: Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = userToken && decode(userToken);
+  const role:any = token && token.role;
+  const expiresIn:any = token && token.expiresIn;
+  if (localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn > Math.floor(Date.now() / 1000)) {
+    props.history.goBack();
+  }
+
+  const dispatch = useDispatch();
+
+  const authReducer = useSelector(
+    (state: AppState) => state.auth
+  );
+
   const {
     errors,
     message,
   }: {
     errors: any;
     message: string;
-  } = props.authReducer;
+  } = authReducer;
   const [isPasswordField, setIsPasswordField] = useState(true);
   useEffect(() => {
     if (message || errors) {
@@ -50,7 +61,7 @@ const SignIn = (props: Props) => {
       setState({ ...state, spinner: false });
     }
     // eslint-disable-next-line
-  }, [props.authReducer]);
+  }, [authReducer]);
 
   const [state, setState] = useState({
     phoneNo: "",
@@ -69,11 +80,10 @@ const SignIn = (props: Props) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setState({ ...state, spinner: true });
-    props.authActions(data);
+    dispatch(authActions(data, props.history));
   };
   const handleClose = (event: MouseEvent<HTMLElement>) => {
     setModalState({ ...modalState, open: false });
@@ -99,6 +109,7 @@ const SignIn = (props: Props) => {
               </div>
               <FormControl>
                 <TextField
+                  name="phoneNo"
                   required
                   placeholder="Phone number"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
@@ -108,6 +119,7 @@ const SignIn = (props: Props) => {
                 />
 
                 <TextField
+                  name="password"
                   required
                   type={isPasswordField ? "password" : "text"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
@@ -144,4 +156,4 @@ const SignIn = (props: Props) => {
   );
 };
 
-export default connector(SignIn);
+export default SignIn;

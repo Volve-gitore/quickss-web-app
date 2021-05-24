@@ -11,8 +11,22 @@ import AddCategory from "../../../../components/Client/AddCategory";
 import AddGroup from "../../../../components/Client/AddGroup";
 import AddProduct from "../../../../components/Client/AddProduct";
 import AddFamily from "../../../../components/Client/AddFamily";
+import { decode } from "jsonwebtoken";
 
-const Clients = () => {
+type Props = {
+  history: any;
+};
+const Clients = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = decode(userToken);
+  const {role, expiresIn} = token;
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "client") {
+    props.history.goBack();
+  }
+
   const [searchKey, setSearchKey] = useState<String>("");
 
   const dispatch = useDispatch();

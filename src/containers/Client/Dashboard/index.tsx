@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
+import { decode } from "jsonwebtoken";
 import Layout from "../../../components/Layout/Client";
 import ClientRegistration from "../../../components/Admin/ClientRegistration/RegisterClient";
 import ClientList from "../../../components/Admin/ClientList";
@@ -8,10 +9,21 @@ import { AppState } from "../../../store/configureStore";
 import { getClients } from "../../../store/client/actions";
 import { IClient } from "../../../store/client/types";
 
+type Props = {
+  history: any;
+};
+const Clients = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = decode(userToken);
+  const {role, expiresIn} = token;
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "client") {
+    props.history.goBack();
+  }
 
-const Clients = () => {
   const [searchKey, setSearchKey] = useState<String>("");
-  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClients());

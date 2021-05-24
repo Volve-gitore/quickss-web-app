@@ -7,8 +7,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/configureStore";
 import { getClients } from "../../../store/client/actions";
 import { IClient } from "../../../store/client/types";
-
-const Dashboard = () => {
+import { decode } from "jsonwebtoken";
+type Props = {
+  history: any;
+}; 
+const Dashboard = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = decode(userToken);
+  const {role, expiresIn} = token; 
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "admin") {
+    props.history.goBack();
+  }
+  
   const [searchKey, setSearchKey] = useState<String>("");
 
   const dispatch = useDispatch();

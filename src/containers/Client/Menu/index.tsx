@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import TextInput from "../../../components/UI/Inputs/TextInput";
 import "./style.scss";
+import { decode } from "jsonwebtoken";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +42,20 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
 }));
+type Props = {
+  history: any;
+};
+const Menu = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = decode(userToken);
+  const {role, expiresIn} = token;
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "client") {
+    props.history.goBack();
+  }
 
-const Menu = () => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState<String>("");
 

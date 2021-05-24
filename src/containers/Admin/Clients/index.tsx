@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
+import { decode } from "jsonwebtoken";
 import Layout from "../../../components/Layout/Admin";
 import ClientList from "../../../components/Admin/ClientList";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +7,20 @@ import { AppState } from "../../../store/configureStore";
 import { getClients } from "../../../store/client/actions";
 import { IClient } from "../../../store/client/types";
 
-const Clients = () => {
+type Props = {
+  history: any;
+}; 
+const Clients = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = decode(userToken);
+  const {role, expiresIn} = token; 
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "admin") {
+    props.history.goBack();
+  }
+
   const { clients }: { clients: IClient[] } = useSelector(
     (state: AppState) => state.clients
   );
@@ -17,7 +31,6 @@ const Clients = () => {
   useEffect(() => {
     dispatch(getClients());
     // eslint-disable-next-line
-    console.log("::::::::::", clients);
 
   }, []);
   useEffect(() => {

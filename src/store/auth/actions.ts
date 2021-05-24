@@ -4,18 +4,22 @@ import { AppThunk } from "../configureStore";
 import { dispatchHandler } from "../helper/dispatchHandler";
 
 export const authActions = (
-  formData: ILoginParams
+  formData: ILoginParams, history:any
 ): AppThunk => async dispatch => {
   dispatchHandler({ type: ERRORS, data: null, dispatch });
   try {
     const URL = "/api/user/auth/signin";
     const { data } = await axios.post(URL, formData);
-    console.log(data);
     if (data) {
       dispatchHandler({ type: LOGIN, data: data, dispatch });
       localStorage.setItem("QUICKSS-USER-TOKEN", data.token);
-      localStorage.setItem("QUICKSS-USER-ROLE", data.user.role);
-      window.location.href = "/admin/dashboard";
+      if(data.user.role === "admin"){
+        history.push('/admin/dashboard');
+      } else if(data.user.role === "client"){
+        history.push('/client/dashboard');
+      } else {
+        history.push('/client/dashboard');
+      }
     }
   } catch (error) {
     if (error) {

@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
+import { decode } from "jsonwebtoken";
 import Layout from "../../../../components/Layout/Admin";
 import Upload from "../../../../components/Admin/ClientRegistration/Upload";
 import Stepper from "../../../../components/Stepper";
@@ -6,7 +7,22 @@ import BasicForm from "../../../../components/Admin/Client/BasicInfoForm";
 import AddressForm from "../../../../components/Admin/Client/AddressForm";
 import ContactsForm from "../../../../components/Admin/Client/ContactsForm";
 
-const ClientRegistration = () => {
+
+type Props = {
+  history: any;
+}; 
+const ClientRegistration = (props:Props) => {
+  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
+  const token:any = userToken && decode(userToken);
+  const role:any = token && token.role;
+  const expiresIn:any = token && token.expiresIn;
+  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
+    props.history.push("/signin");
+  }
+  if (role !== "admin") {
+    props.history.goBack();
+  }
+
   const steps = ["Client", "Contacts", "Address", "Uploads"];
   const [images, setImages] = useState<any>([]);
 
