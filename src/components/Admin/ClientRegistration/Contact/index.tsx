@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import "../../../../assets/scss/hotelResto.scss";
 import { TextField, Box } from "@material-ui/core";
 import { IHotelRestoState } from "../RegisterClient/type";
 

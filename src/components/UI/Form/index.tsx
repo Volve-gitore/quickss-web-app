@@ -22,15 +22,16 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchField = (props: any) => {
   const classes = useStyles();
   return (
-    <form>
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <form>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>{props.children}</Paper>
           </Grid>
         </Grid>
-      </div>
-    </form>
+      </form>
+    </div>
+
   );
 };
 

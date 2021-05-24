@@ -1,40 +1,11 @@
-import React, { FunctionComponent, ChangeEvent } from "react";
-// import "../../assets/scss/hotelResto.scss";
-// import Header from "../helper/header";
-import clsx from "clsx";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Container from "@material-ui/core/Container";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-// import { mainListItems } from "./listItems";
-import HomeIcon from "@material-ui/icons/Home";
-import AddBox from "@material-ui/icons/AddBox";
-import { Link } from "react-router-dom";
+import React, { ChangeEvent } from "react";
 import {
-  Box,
   makeStyles,
   Theme,
   createStyles,
-  lighten,
-  fade,
-  InputBase,
-  Avatar,
-  IconButton,
-  Badge,
-  styled,
 } from "@material-ui/core";
-import { Notifications, ExpandMore } from "@material-ui/icons";
-import profile from "../../../assets/images/profile.jpg";
 import "./style.scss";
 import Navbar from "../../Navbar";
-// import SideMenu from "../../SideMenu";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Footer from "../../Footer";
 import SideMenu from "../../SideMenu";
@@ -60,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       color: theme.palette.text.secondary,
       marginBottom: 10,
+      overflow: "auto"
     },
   })
 );
@@ -89,10 +61,6 @@ const ClientLayout = (props: Props) => {
       link: "/my/dashboard",
     },
     {
-      label: "Menu config",
-      link: "/my/menu/config",
-    },
-    {
       label: "Menu",
       link: "/my/menu",
     },
@@ -104,7 +72,7 @@ const ClientLayout = (props: Props) => {
         <div className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12} style={{ height: "12vh" }}>
-            <Navbar menuItems={menuItems} searchKey={searchKey} onSearch={onSearch}/>
+              <Navbar menuItems={menuItems} searchKey={searchKey} onSearch={onSearch} />
             </Grid>
             {subMenuItems && (
               <Grid item xs={12} sm={3}>

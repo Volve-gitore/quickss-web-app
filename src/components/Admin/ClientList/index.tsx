@@ -13,7 +13,7 @@ const ClientList = (props: Props) => {
   return (
     // <Grid className="content">
 
-    <Grid container spacing={10}   justify="flex-start">
+    <Grid container spacing={10} justify="flex-start">
       {clients &&
         clients.map((item) => (
           <Grid

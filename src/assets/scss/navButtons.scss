@@ -1,7 +1,7 @@
 @import "./color.style.scss";
 
 .btn-pink {
-  background-color: $orangeColor !important;
+  background-color: $primaryColor !important;
   flex: 25%;
   padding: 0.5rem !important;
   border-radius: 30px !important;
@@ -9,12 +9,12 @@
   color: $whiteColor !important;
 }
 .btn-default {
-  background-color: $defaultColor !important;
-  flex: 25%;
-  padding: 0.5rem !important;
-  border-radius: 30px !important;
-  margin: 0 4rem -1rem 4rem !important;
-  color: $blackColor !important;
+  // background-color: $defaultColor !important;
+  // flex: 25%;
+  // padding: 0.5rem !important;
+  // border-radius: 30px !important;
+  // margin: 0 4rem -1rem 4rem !important;
+  // color: $blackColor !important;
 }
 .btn-link {
   text-decoration: none;

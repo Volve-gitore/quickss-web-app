@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Theme, createStyles, withStyles } from "@material-ui/core/styles";
@@ -30,11 +30,11 @@ const TextInput = (props: any) => {
     <CssTextField
       variant="outlined"
       margin="normal"
-      required={true}
       fullWidth
       autoFocus
       size="small"
       {...props}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => props.onChange(e)}
     >
       {props.children}
     </CssTextField>

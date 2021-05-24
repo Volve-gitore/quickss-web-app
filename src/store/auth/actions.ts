@@ -10,6 +10,7 @@ export const authActions = (
   try {
     const URL = "/api/user/auth/signin";
     const { data } = await axios.post(URL, formData);
+    console.log(data);
     if (data) {
       dispatchHandler({ type: LOGIN, data: data, dispatch });
       localStorage.setItem("QUICKSS-USER-TOKEN", data.token);

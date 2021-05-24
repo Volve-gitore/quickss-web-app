@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import "../../../../assets/scss/hotelResto.scss";
 import {
   Button,
   Box,

@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
-// import "../../assets/scss/hotelResto.scss";
 // import Header from "../helper/header";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";

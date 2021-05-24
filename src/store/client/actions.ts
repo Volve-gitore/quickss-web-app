@@ -25,8 +25,6 @@ export const registerClient = (formData: IClient): AppThunk => async (
     const URL = "/api/clients";
     const { data } = await axios.post(URL, info, header);
     if (data) {
-      console.log(":::", data);
-
       dispatchHandler({
         type: REGISTER_CLIENT,
         data: "successfully registered.",
@@ -50,6 +48,7 @@ export const getClients = (): AppThunk => async (dispatch) => {
   try {
     const URL = "/api/clients";
     const { data } = await axios.get(URL);
+
     if (data) {
       dispatchHandler({
         type: GET_ALL_CLIENTS,
@@ -60,6 +59,7 @@ export const getClients = (): AppThunk => async (dispatch) => {
   } catch (error) {
     if (error) {
       const data = error.response;
+
       return dispatchHandler({
         type: ERRORS,
         data,

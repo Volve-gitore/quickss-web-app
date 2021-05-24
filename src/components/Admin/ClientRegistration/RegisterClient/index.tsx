@@ -5,7 +5,6 @@ import React, {
   MouseEvent,
   useEffect,
 } from "react";
-import "../../../../assets/scss/hotelResto.scss";
 import Layout from "../../../Layout/Admin";
 import {
   CssBaseline,

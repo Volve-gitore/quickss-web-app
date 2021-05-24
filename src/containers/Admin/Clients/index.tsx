@@ -17,9 +17,13 @@ const Clients = () => {
   useEffect(() => {
     dispatch(getClients());
     // eslint-disable-next-line
+    console.log("::::::::::", clients);
+
   }, []);
   useEffect(() => {
     setAllClients(clients);
+    console.log("::::::::::", allClients);
+
   }, [clients]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {

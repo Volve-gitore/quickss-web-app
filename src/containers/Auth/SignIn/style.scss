@@ -1,11 +1,14 @@
 @import "../../../assets/scss/color.style.scss";
 
-.title-1 {
+.header {
     color: $blackColor;
     font-size: 20px;
+    margin: 10px 0;
   }
-  .default-color {
+  .txt-mute {
     color: $defaultColor;
+    margin: 20px;
+    font-size: 16px;
   }
   
   .auth-card {
@@ -17,7 +20,7 @@
     align-items: center;
   }
   .pink-color {
-    color: $orangeColor !important;
+    color: $primaryColor !important;
   }
   
   .input-field{
@@ -26,7 +29,7 @@
   }
   
   .input-field:focus, .input-field:active {
-    border-color: $orangeColor !important;
+    border-color: $primaryColor !important;
   }
   .root {
     flex-grow: 1;
@@ -34,28 +37,28 @@
   .paper {
     padding: 8px;
     text-align: center;
-    color: $orangeColor !important;
+    color: $primaryColor !important;
     height: 75vh;
     border-radius: 10px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
-  .color {
-    background-color: $orangeColor !important;
-    margin-top: 25px !important ;
-    color: $whiteColor !important;
-  }
+ 
   .txt-icon, .txt-icon-active {
     color: $defaultColor !important;
   
   }
   
   .txt-icon-active:hover{
-    color: $orangeColor !important;
+    color: $primaryColor !important;
     cursor: pointer;
   }
   
   .orange-color {
-    color: $orangeColor !important;
+    color: $primaryColor !important;
   }
   .dialog-content {
     margin: auto !important;

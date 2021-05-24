@@ -7,18 +7,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/configureStore";
 import { getClients } from "../../../../store/client/actions";
 import { IClient } from "../../../../store/client/types";
-
+import AddCategory from "../../../../components/Client/AddCategory";
+import AddGroup from "../../../../components/Client/AddGroup";
+import AddProduct from "../../../../components/Client/AddProduct";
+import AddFamily from "../../../../components/Client/AddFamily";
 
 const Clients = () => {
   const [searchKey, setSearchKey] = useState<String>("");
-  
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClients());
     // eslint-disable-next-line
   }, []);
 
-  const { clients } : {clients: IClient[]} = useSelector((state: AppState) => state.clients);
+  const { clients }: { clients: IClient[] } = useSelector((state: AppState) => state.clients);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -27,55 +30,43 @@ const Clients = () => {
   const subMenuItems = [
     {
       label: "Add product",
-      link: "/admin/dashboard",
+      link: "/my/menu/config/product",
       icon: "fas fa-box-open"
     },
     {
       label: "Add group",
-      link: "/admin/dashboard/clients",
+      link: "/my/group",
       icon: "fas fa-layer-group"
     },
     {
       label: "Add category",
-      link: "/admin/dashboard/users",
+      link: "/my/category",
       icon: "fab fa-gg-circle"
     },
     {
-      label: "Add sub-category",
-      link: "/admin/dashboard/users",
-      icon: "fas fa-object-group"
-    },
-    {
-      label: "Add type",
-      link: "/admin/dashboard/users",
+      label: "Add Family",
+      link: "/my/family",
       icon: "fas fa-utensils"
-    },{
+    }, {
       label: "Menu",
-      link: "/admin/dashboard/users",
+      link: "/my/menu",
       icon: "fas fa-bars"
     }
   ];
 
   return (
-    <Layout subMenuItems={subMenuItems}>
-      <h1>Coming soon!</h1>
-    </Layout>
+    <Router>
+      <Layout subMenuItems={subMenuItems}>
+        <Switch>
+          <Route exact path="/my/family" component={() => <AddFamily />} />
+          <Route exact path="/my/group" component={() => <AddGroup />} />
+          <Route exact path="/my/category" component={() => <AddCategory />} />
+          <Route exact path="/my/product" component={() => <AddProduct />} />
+        </Switch>
+      </Layout>
+    </Router>
+
   );
 };
 
 export default Clients;
-
-
-
-// .filter((item) => {
-//   return (
-//     (item.name &&
-//       item.name
-//         .toLowerCase()
-//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0) ||
-//     (item.location &&
-//       item.location
-//         .toLowerCase()
-//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0)
-//   );
-// })
