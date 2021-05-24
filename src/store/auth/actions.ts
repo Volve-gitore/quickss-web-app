@@ -14,8 +14,14 @@ export const authActions = (
     if (data) {
       dispatchHandler({ type: LOGIN, data: data, dispatch });
       localStorage.setItem("QUICKSS-USER-TOKEN", data.token);
-      localStorage.setItem("QUICKSS-USER-ROLE", data.user.role);
-      window.location.href = "/admin/dashboard";
+      if(data.user.role === "admin"){
+        window.location.href = "/admin/dashboard";
+      } else if(data.user.role === "client"){
+        window.location.href = "/client/dashboard";
+      } else {
+        window.location.href = "/client/dashboard";
+      }
+      
     }
   } catch (error) {
     if (error) {

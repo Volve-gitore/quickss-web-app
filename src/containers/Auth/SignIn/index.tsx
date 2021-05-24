@@ -69,7 +69,6 @@ const SignIn = (props: Props) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setState({ ...state, spinner: true });
@@ -99,6 +98,7 @@ const SignIn = (props: Props) => {
               </div>
               <FormControl>
                 <TextField
+                  name="phoneNo"
                   required
                   placeholder="Phone number"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
@@ -108,6 +108,7 @@ const SignIn = (props: Props) => {
                 />
 
                 <TextField
+                  name="password"
                   required
                   type={isPasswordField ? "password" : "text"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e)}
