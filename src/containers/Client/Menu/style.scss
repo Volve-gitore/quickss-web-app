@@ -1,0 +1,25 @@
+@import "../../../assets/scss/color.style.scss";
+
+.menu-container{
+    overflow: hidden;
+
+    .menu-header{
+        font-size: 11px;
+        text-align: left;
+        margin: 10px 0 -10px 15px;
+
+        &-buttons{
+            margin: 20px -10px;
+        }
+
+        &-inputs{
+            width: 100%;
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    .items-total{
+        color: $primaryColor;
+    }
+}

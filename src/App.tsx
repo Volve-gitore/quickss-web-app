@@ -4,7 +4,9 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+
 const store = configureStore();
+
 function App() {
   return (
     <div className='App'>
