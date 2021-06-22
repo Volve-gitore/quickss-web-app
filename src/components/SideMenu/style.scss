@@ -1,0 +1,30 @@
+@import "../../assets/scss/color.style.scss";
+
+ 
+.menu-left {
+  position: fixed;
+
+  ul {
+    font-size: 14px;
+    margin-top: 30px;
+ 
+    li {
+      margin: 24px 20px;
+
+      a {
+        text-decoration: none;
+        color: #747474;
+
+        &:hover {
+          color: #d2435e !important;
+          cursor: pointer;
+        }
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,66 @@
+@import "../../../assets/scss/color.style.scss";
+
+* {
+  margin: 0;
+  padding: 0;  
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-left {
+  ul {
+    font-size: 14px;
+
+    li:first-child {
+      margin-top: 0;
+    }
+    li {
+      margin: 24px 20px;
+
+      a {
+        text-decoration: none;
+        color: #747474;
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.menu-item:hover {
+  color: #d2435e !important;
+  cursor: pointer;
+}
+
+.menu-item a:hover {
+  color: #d2435e !important;
+  cursor: pointer;
+}
+body {
+  margin: 0;
+  font-family: sans-serif;
+  overflow-x: hidden;
+}
+.text-white {
+  color: $whiteColor;
+}
+.text-black {
+  color: $blackColor;
+}
+ 
+.content {
+  display: grid;
+  .nav-link {
+    text-decoration: none;
+  }
+  
+  .rows:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+} 
