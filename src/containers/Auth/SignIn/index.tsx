@@ -23,13 +23,15 @@ import {
   PhoneIphone,
   LockOutlined,
 } from "@material-ui/icons";
-import ModalBox from "../../../components/UI/Modal";
+import ModalBox from "../../../components/UI/Modal/MessageAlert";
 import TextField from "../../../components/UI/Inputs/TextInput";
 import "../../../assets/scss/main.scss";
 import { decode } from "jsonwebtoken";
+import { Redirect } from "react-router-dom";
 
 type Props = {
   history: any;
+  location:any
 };
 
 const SignIn = (props: Props) => {
@@ -37,8 +39,11 @@ const SignIn = (props: Props) => {
   const token:any = userToken && decode(userToken);
   const role:any = token && token.role;
   const expiresIn:any = token && token.expiresIn;
-  if (localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn > Math.floor(Date.now() / 1000)) {
-    props.history.goBack();
+  if (localStorage.getItem("QUICKSS-USER-TOKEN")  && expiresIn > Math.floor(Date.now() / 1000) && role === 'admin') {
+    window.location.replace('/admin/dashboard');
+  }
+  if (localStorage.getItem("QUICKSS-USER-TOKEN")  && expiresIn > Math.floor(Date.now() / 1000) && role === 'client') {
+    window.location.replace('/client/dashboard');
   }
 
   const dispatch = useDispatch();
@@ -95,7 +100,7 @@ const SignIn = (props: Props) => {
         handleClose={handleClose}
         state={modalState}
         message={message}
-        error={errors && errors.statusText}
+        error={errors && errors.message}
         title={"Login"}
       />
       <CssBaseline />

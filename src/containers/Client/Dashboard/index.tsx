@@ -14,14 +14,15 @@ type Props = {
 };
 const Clients = (props:Props) => {
   const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
-  const token:any = decode(userToken);
-  const {role, expiresIn} = token;
-  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
-    props.history.push("/signin");
-  }
-  if (role !== "client") {
-    props.history.goBack();
-  }
+  const token:any = userToken && decode(userToken);
+  const role = token && token.role;
+  const expiresIn = token && token.expiresIn;
+  // if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000) || role !== "client") {
+  //   props.history.push("/signin");
+  // }
+  // if (role !== "client") {
+  //   props.history.push('/admin/dashboard');
+  // }
 
   const [searchKey, setSearchKey] = useState<String>("");
   const dispatch = useDispatch();
@@ -69,7 +70,8 @@ const Clients = (props:Props) => {
   ];
 
   return (
-    <Layout subMenuItems={subMenuItems}>
+    // <Layout subMenuItems={subMenuItems}>
+    <Layout>
       <h1>Coming soon!</h1>
     </Layout>
   );

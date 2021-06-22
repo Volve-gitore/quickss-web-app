@@ -4,7 +4,7 @@ export const ERRORS = "ERRORS";
 
 export interface IErrors {
   status: number;
-  message: string;
+  statusText: string;
 }
 
 export interface ISubErrors {

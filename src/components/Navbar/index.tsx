@@ -1,23 +1,25 @@
 import React, { ChangeEvent, FC } from "react";
+import useStyles from "./style";
+import "./style.scss";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 import { Box, Avatar, IconButton, Badge } from "@material-ui/core";
 import { Notifications, ExpandMore } from "@material-ui/icons";
 import profile from "../../assets/images/profile.jpg";
 import Hidden from "@material-ui/core/Hidden";
 import SearchField from "../UI/Inputs/SearchField";
-import useStyles from "./style";
-import "./style.scss";
+import UserProfile from "../UI/Modal/Profile";
+import { SignOut } from "../../store/auth/actions";
+import { useDispatch } from "react-redux";
 
 interface IItem {
   label: string;
   link: string;
 }
 
-interface IProps {
+type IProps= {
   onSearch?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
   menuItems: IItem[];
   searchKey?: string;
@@ -26,6 +28,20 @@ interface IProps {
 const Navbar = (props: IProps) => {
   const { menuItems, searchKey, onSearch } = props;
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const signOut = () => {
+    SignOut();
+    setAnchorEl(null);
+  }
 
   return (
     <div className={classes.root}>
@@ -68,20 +84,14 @@ const Navbar = (props: IProps) => {
                   </IconButton>
                 </Box>
                 <Box p={1}>
-                  <Avatar alt="Quick" src={profile} />
+                  <Avatar onClick={handleClick} alt="Quick" src={profile} />
                 </Box>
-                <Box p={1}>
-                  <ExpandMore />
-                </Box>
-              </Hidden>
-              <Hidden mdUp>
-                <IconButton
-                  edge="start"
-                  aria-label="open drawer"
-                  className={clsx(classes.menuButton)}
-                >
-                  <MenuIcon />
-                </IconButton>
+                {/* <Box p={1}>
+                  <ExpandMore
+                  // onClick={(event) => handleListItemClick(event, 1)}
+                  />
+                </Box> */}
+                <UserProfile anchorEl={anchorEl} handleClick={handleClick} handleClose={handleClose} signOut={signOut} />
               </Hidden>
             </Box>
           </div>

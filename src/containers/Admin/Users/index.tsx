@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
 import { decode } from "jsonwebtoken";
 import Layout from "../../../components/Layout/Admin";
-import ClientList from "../../../components/Admin/ClientList";
+import UserList from "../../../components/Admin/UserList";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/configureStore";
 import { getClients } from "../../../store/client/actions";
@@ -29,16 +29,6 @@ const Clients = (props:Props) => {
   const [allClients, setAllClients] = useState<IClient[]>(clients);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getClients());
-    // eslint-disable-next-line
-
-  }, []);
-  useEffect(() => {
-    setAllClients(clients);
-    console.log("::::::::::", allClients);
-
-  }, [clients]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -46,22 +36,19 @@ const Clients = (props:Props) => {
     const searchResult = clients.filter((item) => {
       return item.name.toLowerCase().startsWith(value.toLowerCase());
     });
- 
-    console.log(searchResult);
-    setAllClients(searchResult);
   };
 
   const subMenuItems = [
     {
-      label: "Clients",
-      link: "/admin/clients",
-      icon: "fas fa-box-open",
+      label: "Users",
+      link: "/admin/users",
+      icon: "fas fa-user",
     },
-    {
-      label: "Add new Client",
-      link: "/admin/clients/registration",
-      icon: "fas fa-layer-group",
-    },
+    // {
+    //   label: "Add new Client",
+    //   link: "/admin/clients/registration",
+    //   icon: "fas fa-layer-group",
+    // },
   ];
 
   return (
@@ -70,22 +57,9 @@ const Clients = (props:Props) => {
       searchKey={searchKey}
       onSearch={handleSearch}
     >
-      <ClientList clients={allClients} />
+      <UserList />
     </Layout>
   );
 };
 
 export default Clients;
-
-// .filter((item) => {
-//   return (
-//     (item.name &&
-//       item.name
-//         .toLowerCase()
-//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0) ||
-//     (item.location &&
-//       item.location
-//         .toLowerCase()
-//         .indexOf(searchKey && searchKey.toLowerCase()) >= 0)
-//   );
-// })

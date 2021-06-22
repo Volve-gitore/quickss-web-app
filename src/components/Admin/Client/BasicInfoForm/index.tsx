@@ -3,6 +3,7 @@ import TextInput from "../../../UI/Inputs/TextInput";
 import Grid from "@material-ui/core/Grid";
 
 const BasicInfoForm = (props: any) => {
+  const {state} = props;
   return (
     <Grid container spacing={3}>
       <Grid
@@ -12,8 +13,11 @@ const BasicInfoForm = (props: any) => {
         md={6}
         style={{ margin: "auto" }}
       >
-        <TextInput id="name" label="Name" name="name" />
+        <TextInput value={state.name} onChange={props.onChange} id="name" label="Name" name="name" />
         <TextInput
+        value={state.category}
+          onChange={props.onChange}
+          name="category"
           className="inputs"
           label="Type"
           type="type"

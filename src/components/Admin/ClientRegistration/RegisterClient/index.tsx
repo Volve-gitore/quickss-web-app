@@ -27,7 +27,7 @@ import CardContent from "@material-ui/core/CardContent";
 import NavButtons from "./navButton";
 import { IClient, IErrors } from "../../../../store/client/types";
 import { AppState } from "../../../../store/configureStore";
-import ModalBox from "../../../UI/Modal";
+import ModalBox from "../../../UI/Modal/MessageAlert";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -202,7 +202,7 @@ const RegisterHotelResto = (props: Props) => {
         handleClose={handleClose}
         state={modalState}
         message={message}
-        error={errors && errors.message}
+        error={errors && errors.statusText}
         title={"Register a new"}
       />
       <div className="content-form">

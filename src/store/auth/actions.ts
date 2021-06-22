@@ -15,15 +15,14 @@ export const authActions = (
       localStorage.setItem("QUICKSS-USER-TOKEN", data.token);
       if(data.user.role === "admin"){
         history.push('/admin/dashboard');
-      } else if(data.user.role === "client"){
-        history.push('/client/dashboard');
-      } else {
+      }
+      if(data.user.role === "client"){
         history.push('/client/dashboard');
       }
     }
   } catch (error) {
     if (error) {
-      const data = error.response;
+      const data = error || error.response;
       return dispatchHandler({
         type: ERRORS,
         data,
@@ -31,4 +30,10 @@ export const authActions = (
       });
     }
   }
+};
+
+export const SignOut = () => {
+  localStorage.removeItem("QUICKSS-USER-TOKEN");
+  window.location.replace('/signin');
+
 };

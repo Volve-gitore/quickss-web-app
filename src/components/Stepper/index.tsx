@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -77,7 +77,7 @@ const StepperCmp = (props: any) => {
                 }}
               >
                 <StepLabel
-                  classes={{
+                  classes={{ 
                     alternativeLabel: classes.alternativeLabel,
                     labelContainer: classes.labelContainer,
                   }}
@@ -132,8 +132,9 @@ const StepperCmp = (props: any) => {
               activeStep === steps.length - 1 ? (
                 <Button
                   variant="contained"
-                  onClick={handleNext}
+                  onClick={props.onSubmit}
                   style={{ background: "#d2435e" }}
+                  // onClick={(e: MouseEvent<HTMLButtonElement, MouseEvent>) => props.onSubmit(e)}
                 >
                   Finish
                 </Button>

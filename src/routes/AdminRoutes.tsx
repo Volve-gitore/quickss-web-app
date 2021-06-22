@@ -1,16 +1,19 @@
 import React, { FC } from "react";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import Dashboard from "../containers/Admin/Dashboard"
 import Clients from "../containers/Admin/Clients"
+import Users from "../containers/Admin/Users"
 import ClientsRegistration from "../containers/Admin/Clients/Registration"
+import ProtectedRoute  from "./adminProtectedRoutes";
 
-const AdminRoutes: FC = () => {
+const AdminRoutes = () => {
   return (
-    <Switch>
-      <Route path='/admin/dashboard' exact component={Dashboard} />
-      <Route path='/admin/clients/registration' exact component={ClientsRegistration} />
-      <Route path='/admin/clients' exact component={Clients} />
-    </Switch>
+      <Switch>
+        <ProtectedRoute path='/admin/dashboard' exact component={Dashboard} />
+        <ProtectedRoute path='/admin/clients/registration' exact component={ClientsRegistration} />
+        <ProtectedRoute path='/admin/clients' exact component={Clients} />
+        <ProtectedRoute path='/admin/users' exact component={Users} />
+      </Switch>
   ); 
 };
 

@@ -21,6 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextInput from "../../../components/UI/Inputs/TextInput";
 import "./style.scss";
 import { decode } from "jsonwebtoken";
+import ProtectedRoute from "../../../routes/clientProtectedRoutes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,14 +48,15 @@ type Props = {
 };
 const Menu = (props:Props) => {
   const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
-  const token:any = decode(userToken);
-  const {role, expiresIn} = token;
-  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
-    props.history.push("/signin");
-  }
-  if (role !== "client") {
-    props.history.goBack();
-  }
+  const token:any = userToken && decode(userToken);
+  const role = token && token.role;
+  const expiresIn = token && token.expiresIn;
+  // if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000) || role !== "client") {
+  //   props.history.push("/signin");
+  // }
+  // if (role !== "client") {
+  //   props.history.push('/admin/dashboard');
+  // }
 
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState<String>("");
@@ -74,26 +76,26 @@ const Menu = (props:Props) => {
   const subMenuItems = [
     {
       label: "Add product",
-      link: "/my/product",
+      link: "/client/product",
       icon: "fas fa-box-open"
     },
     {
       label: "Add group",
-      link: "/my/group",
+      link: "/client/group",
       icon: "fas fa-layer-group"
     },
     {
       label: "Add category",
-      link: "/my/category",
+      link: "/client/category",
       icon: "fab fa-gg-circle"
     },
     {
       label: "Add Family",
-      link: "/my/family",
+      link: "/client/family",
       icon: "fas fa-utensils"
     }, {
       label: "Menu",
-      link: "/my/menu",
+      link: "/client/menu",
       icon: "fas fa-bars"
     }
   ];
@@ -102,7 +104,7 @@ const Menu = (props:Props) => {
     <Router>
       <Layout subMenuItems={subMenuItems}>
         <Switch>
-          <Route exact path="/my/menu" component={() => <div className="menu-container">
+          <Route exact path="/client/menu" component={() => <div className="menu-container">
             <div className="menu-header">
              <div className="menu-header-inputs">
              <Paper component="form" className={classes.root}>
@@ -162,10 +164,10 @@ const Menu = (props:Props) => {
               {/* </Grid> */}
             </Grid>
           </div>} />
-          <Route exact path="/my/family" component={() => <AddFamily />} />
-          <Route exact path="/my/group" component={() => <AddGroup />} />
-          <Route exact path="/my/category" component={() => <AddCategory />} />
-          <Route exact path="/my/product" component={() => <AddProduct />} />
+          <ProtectedRoute exact path="/client/family" component={() => <AddFamily />} />
+          <ProtectedRoute exact path="/client/group" component={() => <AddGroup />} />
+          <ProtectedRoute exact path="/client/category" component={() => <AddCategory />} />
+          <ProtectedRoute exact path="/client/product" component={() => <AddProduct />} />
         </Switch>
       </Layout>
     </Router>

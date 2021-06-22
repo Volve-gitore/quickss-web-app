@@ -13,14 +13,9 @@ type Props = {
 }; 
 const Dashboard = (props:Props) => {
   const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
-  const token:any = decode(userToken);
-  const {role, expiresIn} = token; 
-  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
-    props.history.push("/signin");
-  }
-  if (role !== "admin") {
-    props.history.goBack();
-  }
+  const token:any = userToken && decode(userToken);
+  const role:any = token && token.role;
+  const expiresIn:any = token && token.expiresIn;
   
   const [searchKey, setSearchKey] = useState<String>("");
 
@@ -45,11 +40,11 @@ const Dashboard = (props:Props) => {
     },
     {
       label: "Clients",
-      link: "/admin/dashboard/clients",
+      link: "/admin/clients",
     },
     {
       label: "Users",
-      link: "/admin/dashboard/users",
+      link: "/admin/users",
     },
   ];
 

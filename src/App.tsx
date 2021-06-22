@@ -4,6 +4,9 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/configureStore";
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.headers = {
+  'x-access-token': localStorage.getItem("QUICKSS-USER-TOKEN"),
+};
 
 const store = configureStore();
 
@@ -11,7 +14,7 @@ function App() {
   return (
     <div className='App'>
       <Provider store={store}>
-        <Routes />
+          <Routes />
       </Provider>
     </div>
   );

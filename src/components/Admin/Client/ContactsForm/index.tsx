@@ -3,6 +3,7 @@ import TextInput from "../../../UI/Inputs/TextInput";
 import Grid from "@material-ui/core/Grid";
 
 const ContactsForm = (props: any) => {
+  const {state} = props;
   return (
     <Grid container spacing={3}>
       <Grid
@@ -12,9 +13,9 @@ const ContactsForm = (props: any) => {
         md={6}
         style={{ margin: "auto" }}
       >
-        <TextInput id="telephone" label="Telephone" name="telephone" />
-        <TextInput required={true} id="email" label="Email" name="email" />
-        <TextInput id="website" label="Description" name="description" multiline
+        <TextInput value={state.telephone} onChange={props.onChange} id="telephone" label="Telephone" name="telephone" />
+        <TextInput value={state.email} onChange={props.onChange} required={true} id="email" label="Email" name="email" />
+        <TextInput value={state.description} onChange={props.onChange} id="website" label="Description" name="description" multiline
           rows={4}/>
       </Grid>
     </Grid>

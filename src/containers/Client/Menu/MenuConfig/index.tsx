@@ -12,6 +12,7 @@ import AddGroup from "../../../../components/Client/AddGroup";
 import AddProduct from "../../../../components/Client/AddProduct";
 import AddFamily from "../../../../components/Client/AddFamily";
 import { decode } from "jsonwebtoken";
+import ProtectedRoute from "../../../../routes/clientProtectedRoutes";
 
 type Props = {
   history: any;
@@ -20,12 +21,12 @@ const Clients = (props:Props) => {
   const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
   const token:any = decode(userToken);
   const {role, expiresIn} = token;
-  if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000)) {
-    props.history.push("/signin");
-  }
-  if (role !== "client") {
-    props.history.goBack();
-  }
+  // if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000) || role !== "client") {
+  //   props.history.push("/signin");
+  // }
+  // if (role !== "client") {
+  //   props.history.push('/admin/dashboard');
+  // }
 
   const [searchKey, setSearchKey] = useState<String>("");
 
@@ -44,26 +45,26 @@ const Clients = (props:Props) => {
   const subMenuItems = [
     {
       label: "Add product",
-      link: "/my/menu/config/product",
+      link: "/client/product",
       icon: "fas fa-box-open"
     },
     {
       label: "Add group",
-      link: "/my/group",
+      link: "/client/group",
       icon: "fas fa-layer-group"
     },
     {
       label: "Add category",
-      link: "/my/category",
+      link: "/client/category",
       icon: "fab fa-gg-circle"
     },
     {
       label: "Add Family",
-      link: "/my/family",
+      link: "/client/family",
       icon: "fas fa-utensils"
     }, {
       label: "Menu",
-      link: "/my/menu",
+      link: "/client/menu",
       icon: "fas fa-bars"
     }
   ];
@@ -72,10 +73,10 @@ const Clients = (props:Props) => {
     <Router>
       <Layout subMenuItems={subMenuItems}>
         <Switch>
-          <Route exact path="/my/family" component={() => <AddFamily />} />
-          <Route exact path="/my/group" component={() => <AddGroup />} />
-          <Route exact path="/my/category" component={() => <AddCategory />} />
-          <Route exact path="/my/product" component={() => <AddProduct />} />
+          <ProtectedRoute exact path="/client/family" component={() => <AddFamily />} />
+          <ProtectedRoute exact path="/client/group" component={() => <AddGroup />} />
+          <ProtectedRoute exact path="/client/category" component={() => <AddCategory />} />
+          <ProtectedRoute exact path="/client/product" component={() => <AddProduct />} />
         </Switch>
       </Layout>
     </Router>

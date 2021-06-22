@@ -58,11 +58,11 @@ const ClientLayout = (props: Props) => {
   const menuItems = [
     {
       label: "Home",
-      link: "/my/dashboard",
+      link: "/client/dashboard",
     },
     {
       label: "Menu",
-      link: "/my/menu",
+      link: "/client/menu",
     },
   ];
 

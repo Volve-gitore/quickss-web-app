@@ -4,6 +4,7 @@ import TextInput from "../../../UI/Inputs/TextInput";
 import Grid from "@material-ui/core/Grid";
 
 const AddressForm = (props:any) => {
+  const {state} = props;
   return (
     <Grid container spacing={3}>
 
@@ -15,6 +16,8 @@ const AddressForm = (props:any) => {
       style={{ margin: "auto" }}
     >
       <TextInput
+        value={state.province}
+        onChange={props.onChange}
         name="province"
         label="Province"
         id="province"
@@ -28,6 +31,8 @@ const AddressForm = (props:any) => {
         <option>North</option>
       </TextInput>
       <TextInput
+      value={state.district}
+        onChange={props.onChange}
         name="district"
         label="District"
         id="district"
@@ -41,6 +46,8 @@ const AddressForm = (props:any) => {
         <option>Gasabo</option>
       </TextInput>
       <TextInput
+      value={state.sector}
+        onChange={props.onChange}
         name="sector"
         label="Sector"
         id="sector"
@@ -53,8 +60,8 @@ const AddressForm = (props:any) => {
         <option>Niboye</option>
         <option>Bwiza</option>
       </TextInput>
-      <TextInput id="street" label="Location" name="location" />
-      <TextInput id="mapUrl" label="Map url" name="mapUrl" />
+      <TextInput value={state.location} onChange={props.onChange} id="street" label="Location" name="location" />
+      <TextInput value={state.mapUrl} onChange={props.onChange} id="mapUrl" label="Map url" name="mapUrl" />
     </Grid>
     </Grid>
   );

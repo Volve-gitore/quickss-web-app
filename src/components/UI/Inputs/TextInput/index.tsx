@@ -25,7 +25,13 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
+// type Props = {
+//   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+//   children:any
+// };
+
 const TextInput = (props: any) => {
+  // const {onChange, children}= props;
   return (
     <CssTextField
       variant="outlined"
