@@ -3,8 +3,8 @@ import Layout from "../../../components/Layout/Client";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/configureStore";
-import { getClients } from "../../../store/client/actions";
-import { IClient } from "../../../store/client/types";
+import { getClients } from "../../../store/admin/actions";
+import { IClient } from "../../../store/admin/types";
 import AddCategory from "../../../components/Client/AddCategory";
 import AddGroup from "../../../components/Client/AddGroup";
 import AddProduct from "../../../components/Client/AddProduct";
@@ -22,6 +22,8 @@ import TextInput from "../../../components/UI/Inputs/TextInput";
 import "./style.scss";
 import { decode } from "jsonwebtoken";
 import ProtectedRoute from "../../../routes/clientProtectedRoutes";
+import { IGroupCategoryFamily, IProduct } from "../../../store/client/types";
+import { getCategories, getFamilies, getGroups, getProducts } from "../../../store/client/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,27 +49,16 @@ type Props = {
   history: any;
 };
 const Menu = (props:Props) => {
-  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
-  const token:any = userToken && decode(userToken);
-  const role = token && token.role;
-  const expiresIn = token && token.expiresIn;
-  // if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000) || role !== "client") {
-  //   props.history.push("/signin");
-  // }
-  // if (role !== "client") {
-  //   props.history.push('/admin/dashboard');
-  // }
-
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState<String>("");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getClients());
+    dispatch(getProducts());
     // eslint-disable-next-line
   }, []);
 
-  const { clients }: { clients: IClient[] } = useSelector((state: AppState) => state.clients);
+  const { products }: { products: IProduct[] } = useSelector((state: AppState) => state.client);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -149,18 +140,9 @@ const Menu = (props:Props) => {
             </div>
             <Grid container spacing={2} justify="flex-start">
               {/* <Grid item xs  style={{height: "500px"}}> */}
-
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-              <MenuItemCard />
-
+             {products && products.map((item:IProduct) => (
+                <MenuItemCard key={item.id} item={item} />
+             ))}
               {/* </Grid> */}
             </Grid>
           </div>} />

@@ -1,24 +1,23 @@
 import React, { ChangeEvent, useState, useEffect, MouseEvent, FormEvent, Props } from "react";
-import { decode } from "jsonwebtoken";
 import Layout from "../../../../components/Layout/Admin";
-import Upload from "../../../../components/Admin/ClientRegistration/Upload";
+import Upload from "../../../../components/Admin/Client/Upload";
 import Stepper from "../../../../components/Stepper";
 import BasicForm from "../../../../components/Admin/Client/BasicInfoForm";
 import AddressForm from "../../../../components/Admin/Client/AddressForm";
 import ContactsForm from "../../../../components/Admin/Client/ContactsForm";
 import { useDispatch, useSelector } from "react-redux";
-import { IHotelRestoState, IModalState } from "../../../../components/Admin/ClientRegistration/RegisterClient/type";
-import { IClient, IErrors } from "../../../../store/client/types";
+import { IClientState, IModalState } from "../../../../components/Admin/Client/type";
+import { IClient, IErrors } from "../../../../store/admin/types";
 import { AppState } from "../../../../store/configureStore";
-import { registerClient } from "../../../../store/client/actions";
+import { registerClient } from "../../../../store/admin/actions";
 import ModalBox from "../../../../components/UI/Modal/MessageAlert";
 
 
 const ClientRegistration = () => {
-  const clientReducer = useSelector((state: AppState) => state.clients);
+  const adminReducer = useSelector((state: AppState) => state.admin);
   const dispatch = useDispatch();
 
-    const [state, setState] = useState<IHotelRestoState>({
+    const [state, setState] = useState<IClientState>({
       name: "",
       images: [],
       category: "",
@@ -57,7 +56,7 @@ const ClientRegistration = () => {
       clients: IClient[];
       errors: IErrors;
       message: string;
-    } = clientReducer;
+    } = adminReducer;
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setState({ ...state, spinner: true });
@@ -97,7 +96,7 @@ const ClientRegistration = () => {
       setState({ ...state, spinner: false });
     }
     // eslint-disable-next-line
-  }, [clientReducer]);
+  }, [adminReducer]);
 
   const stepContent = [ 
     <BasicForm state={state} onChange={onChange} />,

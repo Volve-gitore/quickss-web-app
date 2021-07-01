@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, Paper } from "@material-ui/core";
-import { IClient } from "../../../store/client/types";
+import { IClient } from "../../../store/admin/types";
 import { Star, LocationOn } from "@material-ui/icons";
 
 type Props = {

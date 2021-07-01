@@ -4,8 +4,8 @@ import Layout from "../../../components/Layout/Admin";
 import UserList from "../../../components/Admin/UserList";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../store/configureStore";
-import { getClients } from "../../../store/client/actions";
-import { IClient } from "../../../store/client/types";
+import { getClients } from "../../../store/admin/actions";
+import { IClient } from "../../../store/admin/types";
 
 type Props = {
   history: any;
@@ -23,7 +23,7 @@ const Clients = (props:Props) => {
   // }
 
   const { clients }: { clients: IClient[] } = useSelector(
-    (state: AppState) => state.clients
+    (state: AppState) => state.admin
   );
   const [searchKey, setSearchKey] = useState<string>("");
   const [allClients, setAllClients] = useState<IClient[]>(clients);

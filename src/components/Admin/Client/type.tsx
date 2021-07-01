@@ -1,4 +1,4 @@
-export type IHotelRestoState = {
+export type IClientState = {
   name: string;
   images: any;
   category: string;

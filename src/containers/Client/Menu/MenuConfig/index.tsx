@@ -1,47 +1,78 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { ChangeEvent, useState, useEffect, FormEvent } from "react";
 import Layout from "../../../../components/Layout/Client";
-import ClientRegistration from "../../../../components/Admin/ClientRegistration/RegisterClient";
 import ClientList from "../../../../components/Admin/ClientList";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/configureStore";
-import { getClients } from "../../../../store/client/actions";
-import { IClient } from "../../../../store/client/types";
+import { getClients } from "../../../../store/admin/actions";
+import { IClient } from "../../../../store/admin/types";
 import AddCategory from "../../../../components/Client/AddCategory";
 import AddGroup from "../../../../components/Client/AddGroup";
 import AddProduct from "../../../../components/Client/AddProduct";
 import AddFamily from "../../../../components/Client/AddFamily";
-import { decode } from "jsonwebtoken";
 import ProtectedRoute from "../../../../routes/clientProtectedRoutes";
+import { createProduct, getCategories, getFamilies, getGroups, getProducts } from "../../../../store/client/actions";
+import { IGroupCategoryFamily, IProduct } from "../../../../store/client/types";
+import { IState } from "./type"
 
-type Props = {
-  history: any;
-};
-const Clients = (props:Props) => {
-  const userToken:any = localStorage.getItem("QUICKSS-USER-TOKEN");
-  const token:any = decode(userToken);
-  const {role, expiresIn} = token;
-  // if (!localStorage.getItem("QUICKSS-USER-TOKEN")  || expiresIn < Math.floor(Date.now() / 1000) || role !== "client") {
-  //   props.history.push("/signin");
-  // }
-  // if (role !== "client") {
-  //   props.history.push('/admin/dashboard');
-  // }
+const Clients = () => {
+
+  const [state, setState] = useState<IState>({
+    clientId: "",
+    groupId: "",
+    type: "",
+    categoryId: "",
+    name: "",
+    currency: "",
+    price: 0,
+    flag: 0,
+    description: "",
+    images: [],
+  });
 
   const [searchKey, setSearchKey] = useState<String>("");
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getClients());
-    // eslint-disable-next-line
+    dispatch(getGroups());
+    dispatch(getCategories());
+    dispatch(getFamilies());
+    // eslint-disable-next-line 
   }, []);
-
-  const { clients }: { clients: IClient[] } = useSelector((state: AppState) => state.clients);
+  
+  const {groups, categories, families}: {groups:IGroupCategoryFamily[], categories:IGroupCategoryFamily[], families:IGroupCategoryFamily[]} = useSelector((state:AppState)=> state.client);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearchKey(value);
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
   };
+
+  // const onHandleFileImages = (f: File[]) => {
+  //   setState({ ...state, images: f });
+  // };
+
+  const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, images: e.target.files });
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const information:IProduct = {
+      clientId: state.clientId,
+      groupId: state.groupId,
+      type: state.type,
+      categoryId: state.categoryId,
+      name: state.name,
+      currency: state.currency,
+      price: state.price,
+      flag: state.flag,
+      description: state.description,
+      images: state.images,
+    };
+    dispatch(createProduct(information));
+  }
+
   const subMenuItems = [
     {
       label: "Add product",
@@ -66,7 +97,7 @@ const Clients = (props:Props) => {
       label: "Menu",
       link: "/client/menu",
       icon: "fas fa-bars"
-    }
+    } 
   ];
 
   return (
@@ -76,7 +107,7 @@ const Clients = (props:Props) => {
           <ProtectedRoute exact path="/client/family" component={() => <AddFamily />} />
           <ProtectedRoute exact path="/client/group" component={() => <AddGroup />} />
           <ProtectedRoute exact path="/client/category" component={() => <AddCategory />} />
-          <ProtectedRoute exact path="/client/product" component={() => <AddProduct />} />
+          <ProtectedRoute exact path="/client/product" component={() => <AddProduct groups={groups} categories={categories} families={families} onChange={onChange} state={state} onSubmit={onSubmit} onChangeImage={onChangeImage} />} />
         </Switch>
       </Layout>
     </Router>

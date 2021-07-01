@@ -1,39 +1,29 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import TextInput from "../Inputs/TextInput";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
-
-interface IInputElement {
-    type: string;
-    label?: string;
-    placeholder?: string;
-}
-
 interface IProps {
     onSave?: (e: ChangeEvent<HTMLInputElement>) => void | undefined;
     placeholder?: string;
     label?: string;
+    inputField?: any;
+    handleAddInputField?: any;
+    onChange?: any;
+    type?: string;
+    name?:string;
 }
 const AddInputElement = (props: IProps) => {
-    const { label, placeholder } = props;
-    const [inputField, setInputField] = useState<IInputElement[]>([{ type: "text", label: "", placeholder: "" }]);
-
-    const handleAddInputField = () => {
-        setInputField([
-            ...inputField,
-            { type: "text", label, placeholder }
-        ]);
-    };
+    const { label, placeholder, inputField, handleAddInputField, onChange, type, name } = props;
 
     return (
         <div>
-            {inputField.map((fld, i) => (
+            {inputField && inputField.map((fld:any, i:number) => (
                 <TextInput
-                    name={fld.type + i}
-                    key={fld.type + i}
-                    type={fld.type}
+                    name={name}
+                    key={i}
+                    type={type}
                     placeholder={placeholder}
                     label={label}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e, i)}
                 />
             ))}
             <AddCircleIcon style={{ fontSize: '35px' }} onClick={handleAddInputField} />

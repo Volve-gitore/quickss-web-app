@@ -1,19 +1,31 @@
-
 import React from "react";
+import { IProduct } from "../../../store/client/types";
 import "./style.scss";
 
-const MenuItemCard = (props: any) => {
+type Props = {
+    item: IProduct;
+}
+
+const MenuItemCard = (props:Props) => {
+
+    const { item } = props;
 
     return (
         <div className="card">
             <div className="card-img">
-                <img src="https://res.cloudinary.com/dp1abfk0j/image/upload/v1568359786/aeug5ovdn77oacxylphy.jpg" alt="burger" />
+                 <img
+                    src={
+                    item.images
+                        ? item.images[0]
+                        : "https://res.cloudinary.com/dp1abfk0j/image/upload/v1568359786/aeug5ovdn77oacxylphy.jpg"
+                    }
+                />
             </div>
             <div className="card-details">
                 <div className="item">
                     <div className="row-1">
                         <div className="title">
-                            <h5>Lorem ipsum dolor sit amet </h5>
+                            <h5>{ item ? item.description : "N/A" } </h5>
                             <h6>Category sample</h6>
                         </div>
                         <div className="menu">
@@ -27,7 +39,7 @@ const MenuItemCard = (props: any) => {
                             <span>Group 3 </span>
                         </div>
                         <div className="item-price">
-                            5000 <sup className="price-tag">Rwf</sup></div>
+                        {item ? item.price : "N/A" } <sup className="price-tag">{item ? item.currency : "N/A" }</sup></div>
                     </div>
 
                 </div>

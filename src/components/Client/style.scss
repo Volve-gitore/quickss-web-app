@@ -1,20 +1,20 @@
-.form-container{
-    width: 70%;
-    height: 70vh;
-    overflow: auto;
-    margin: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.form-container {
+  width: 70%;
+  height: 70vh;
+  overflow: auto;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.form-fields{
-    height: 65vh;
-    overflow: auto;
+.form-fields {
+  height: 65vh;
+  overflow: auto;
 }
 
-.btn-group{
-    display: flex;
-    flex: 10;
-    justify-content: center;
+.btn-group {
+  display: flex;
+  flex: 10;
+  justify-content: center;
 }
